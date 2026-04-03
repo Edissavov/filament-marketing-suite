@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace VasilGerginski\MarketingSuite\Models;
 
 use AshAllenDesign\ShortURL\Models\ShortURLVisit as BaseShortURLVisit;
+use Carbon\CarbonImmutable;
 
 /**
  * Extended ShortURLVisit model with conversion tracking.
@@ -13,7 +14,7 @@ use AshAllenDesign\ShortURL\Models\ShortURLVisit as BaseShortURLVisit;
  * @property int $short_url_id
  * @property string|null $visitor_token
  * @property string|null $session_id
- * @property \Carbon\CarbonImmutable|null $reached_registration_at
+ * @property CarbonImmutable|null $reached_registration_at
  *
  * @mixin \Eloquent
  */

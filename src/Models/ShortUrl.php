@@ -119,6 +119,6 @@ class ShortUrl extends BaseShortUrl
 
         $separator = str_contains($this->destination_url, '?') ? '&' : '?';
 
-        return $this->destination_url.$separator.http_build_query($params);
+        return $this->destination_url . $separator . http_build_query($params);
     }
 }
