@@ -30,6 +30,7 @@ Publish and run the migrations:
 
 ```bash
 php artisan vendor:publish --provider="Spatie\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="AshAllenDesign\ShortURL\Providers\ShortURLProvider" --tag="short-url-migrations"
 php artisan vendor:publish --tag="marketing-suite-migrations"
 php artisan migrate
 ```
