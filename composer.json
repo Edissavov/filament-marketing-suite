@@ -13,10 +13,10 @@
         "blog",
         "events"
     ],
-    "homepage": "https://github.com/vasilgerginski/filament-marketing-suite",
+    "homepage": "https://github.com/vasilGerginski/filament-marketing-suite",
     "support": {
-        "issues": "https://github.com/vasilgerginski/filament-marketing-suite/issues",
-        "source": "https://github.com/vasilgerginski/filament-marketing-suite"
+        "issues": "https://github.com/vasilGerginski/filament-marketing-suite/issues",
+        "source": "https://github.com/vasilGerginski/filament-marketing-suite"
     },
     "license": "MIT",
     "authors": [
