@@ -35,7 +35,7 @@
         "spatie/laravel-package-tools": "^1.15.0",
         "abdulmajeed-jamaan/filament-translatable-tabs": "^5.0",
         "ashallendesign/short-url": "^8.0",
-        "vasilgerginski/filament-short-url": "^5.0",
+        "vasilgerginski/filament-short-url": "^1.0",
         "spatie/laravel-settings": "^3.0",
         "spatie/laravel-translatable": "^6.0"
     },
