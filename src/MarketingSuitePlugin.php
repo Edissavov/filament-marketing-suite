@@ -15,6 +15,7 @@ use VasilGerginski\MarketingSuite\Filament\Resources\HelpArticleResource;
 use VasilGerginski\MarketingSuite\Filament\Resources\HelpCategoryResource;
 use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource;
 use VasilGerginski\MarketingSuite\Filament\Resources\NewsletterSubscribers\NewsletterSubscriberResource;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource;
 use VasilGerginski\MarketingSuite\Filament\Widgets\EventCalendarWidget;
 
 class MarketingSuitePlugin implements Plugin
@@ -33,7 +34,7 @@ class MarketingSuitePlugin implements Plugin
 
     protected bool $hasNewsletter = true;
 
-    protected bool $hasShortUrls = false;
+    protected bool $hasShortUrls = true;
 
     protected bool $hasSiteSettings = true;
 
@@ -211,8 +212,8 @@ class MarketingSuitePlugin implements Plugin
             $resources[] = NewsletterSubscriberResource::class;
         }
 
-        if ($this->hasShortUrls && class_exists(\VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource::class)) {
-            $resources[] = \VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource::class;
+        if ($this->hasShortUrls) {
+            $resources[] = ShortUrlResource::class;
         }
 
         return $resources;

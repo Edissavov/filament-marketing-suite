@@ -34,6 +34,8 @@
         "livewire/livewire": "^4.0",
         "spatie/laravel-package-tools": "^1.15.0",
         "abdulmajeed-jamaan/filament-translatable-tabs": "^5.0",
+        "ashallendesign/short-url": "^8.0",
+        "vasilgerginski/filament-short-url": "^5.0",
         "spatie/laravel-settings": "^3.0",
         "spatie/laravel-translatable": "^6.0"
     },
@@ -50,8 +52,7 @@
     "suggest": {
         "anthropic-ai/sdk": "Required for AI landing page generation (^0.8)",
         "mailerlite/mailerlite-php": "Required for MailerLite newsletter integration (^1.0)",
-        "spatie/laravel-sitemap": "Required for sitemap generation (^7.0)",
-        "ashallendesign/short-url": "Required for short URL tracking (^8.0)"
+        "spatie/laravel-sitemap": "Required for sitemap generation (^7.0)"
     },
     "autoload": {
         "psr-4": {
