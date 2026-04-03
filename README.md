@@ -26,19 +26,10 @@ Install via Composer:
 composer require vasilgerginski/filament-marketing-suite
 ```
 
-Publish and run the migrations:
+Run the install command (publishes all migrations, config, and runs migrate):
 
 ```bash
-php artisan vendor:publish --provider="Spatie\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
-php artisan vendor:publish --provider="AshAllenDesign\ShortURL\Providers\ShortURLProvider" --tag="short-url-migrations"
-php artisan vendor:publish --tag="marketing-suite-migrations"
-php artisan migrate
-```
-
-Publish the config file:
-
-```bash
-php artisan vendor:publish --tag="marketing-suite-config"
+php artisan marketing-suite:install
 ```
 
 Add the following to your theme CSS file:
