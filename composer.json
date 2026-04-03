@@ -33,7 +33,7 @@
         "guava/calendar": "^3.0",
         "livewire/livewire": "^4.0",
         "spatie/laravel-package-tools": "^1.15.0",
-        "abdulmajeedjamaan/filament-translatable-tabs": "^1.0",
+        "abdulmajeed-jamaan/filament-translatable-tabs": "^5.0",
         "spatie/laravel-settings": "^3.0",
         "spatie/laravel-translatable": "^6.0"
     },
