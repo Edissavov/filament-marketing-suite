@@ -40,10 +40,12 @@ Publish the config file:
 php artisan vendor:publish --tag="marketing-suite-config"
 ```
 
-Add the plugin's views to your theme CSS:
+Add the following to your theme CSS file:
 
 ```css
+@import '../../../../vendor/guava/calendar/resources/css/theme.css';
 @source '../../../../vendor/vasilgerginski/filament-marketing-suite/resources/**/*.blade.php';
+@source '../../../../vendor/guava/calendar/resources/**/*.blade.php';
 ```
 
 ## Usage
