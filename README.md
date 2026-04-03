@@ -29,6 +29,7 @@ composer require vasilgerginski/filament-marketing-suite
 Publish and run the migrations:
 
 ```bash
+php artisan vendor:publish --provider="Spatie\LaravelSettings\LaravelSettingsServiceProvider" --tag="migrations"
 php artisan vendor:publish --tag="marketing-suite-migrations"
 php artisan migrate
 ```
