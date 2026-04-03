@@ -1,33 +1,41 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "vasilgerginski/filament-marketing-suite",
+    "description": "A complete marketing panel for Filament: landing pages with AI generator, events, blog, short URLs, newsletter integration, and analytics.",
     "keywords": [
-        ":vendor_name",
+        "vasilgerginski",
         "laravel",
         "filamentphp",
         "filament",
         "filament-plugin",
-        ":package_slug"
+        "marketing",
+        "landing-pages",
+        "newsletter",
+        "blog",
+        "events"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/vasilgerginski/filament-marketing-suite",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/vasilgerginski/filament-marketing-suite/issues",
+        "source": "https://github.com/vasilgerginski/filament-marketing-suite"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Vasil Gerginski",
+            "email": "vasil.gerginsky@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.2",
         "filament/filament": "^5.0",
-        "filament/forms": "^5.0",
-        "filament/tables": "^5.0",
-        "spatie/laravel-package-tools": "^1.15.0"
+        "filament/spatie-laravel-settings-plugin": "^5.0",
+        "guava/calendar": "^3.0",
+        "livewire/livewire": "^4.0",
+        "spatie/laravel-package-tools": "^1.15.0",
+        "abdulmajeedjamaan/filament-translatable-tabs": "^1.0",
+        "spatie/laravel-settings": "^3.0",
+        "spatie/laravel-translatable": "^6.0"
     },
     "require-dev": {
         "larastan/larastan": "^3.0",
@@ -37,44 +45,42 @@
         "pestphp/pest": "^3.7|^4.0",
         "pestphp/pest-plugin-arch": "^3.0|^4.0",
         "pestphp/pest-plugin-laravel": "^3.0|^4.0",
-        "pestphp/pest-plugin-livewire": "^3.0|^4.0",
-        "rector/rector": "^2.0",
-        "spatie/laravel-ray": "^1.26"
+        "pestphp/pest-plugin-livewire": "^3.0|^4.0"
+    },
+    "suggest": {
+        "anthropic-ai/sdk": "Required for AI landing page generation (^0.8)",
+        "mailerlite/mailerlite-php": "Required for MailerLite newsletter integration (^1.0)",
+        "spatie/laravel-sitemap": "Required for sitemap generation (^7.0)",
+        "ashallendesign/short-url": "Required for short URL tracking (^8.0)"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "VasilGerginski\\MarketingSuite\\": "src/",
+            "VasilGerginski\\MarketingSuite\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "VasilGerginski\\MarketingSuite\\Tests\\": "tests/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
         "analyse": "phpstan analyse",
         "lint": "pint",
-        "refactor": "rector",
         "test": "pest",
-        "test:lint": "pint --test",
-        "test:refactor": "rector --dry-run"
+        "test:lint": "pint --test"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
-            }
+                "VasilGerginski\\MarketingSuite\\MarketingSuiteServiceProvider"
+            ]
         }
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "composer/package-versions-deprecated": true,
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         }

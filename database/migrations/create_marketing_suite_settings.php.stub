@@ -1,0 +1,23 @@
+<?php
+
+use Spatie\LaravelSettings\Migrations\SettingsMigration;
+
+return new class extends SettingsMigration
+{
+    public function up(): void
+    {
+        $this->migrator->add('site.site_name', '');
+        $this->migrator->add('site.tagline', '');
+        $this->migrator->add('site.contact_email', '');
+        $this->migrator->add('site.contact_phone', '');
+        $this->migrator->add('site.facebook_url', '');
+        $this->migrator->add('site.instagram_url', '');
+        $this->migrator->add('site.linkedin_url', '');
+        $this->migrator->add('site.youtube_url', '');
+        $this->migrator->add('site.viber_url', '');
+        $this->migrator->add('site.facebook_group_url', '');
+        $this->migrator->add('site.facebook_pixel_id', '');
+        $this->migrator->add('site.mailerlite_api_key', '');
+        $this->migrator->add('site.newsletter_group_id', '');
+    }
+};
