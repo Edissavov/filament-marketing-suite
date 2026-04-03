@@ -1,70 +1,97 @@
-# :package_description
+# Filament Marketing Suite
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/vasilgerginski/filament-marketing-suite.svg?style=flat-square)](https://packagist.org/packages/vasilgerginski/filament-marketing-suite)
+[![Total Downloads](https://img.shields.io/packagist/dt/vasilgerginski/filament-marketing-suite.svg?style=flat-square)](https://packagist.org/packages/vasilgerginski/filament-marketing-suite)
 
-<!--delete-->
----
-This repo can be used to scaffold a Filament plugin. Follow these steps to get started:
+A complete marketing panel plugin for Filament v5: blog, landing pages with AI generator, events with calendar, FAQ, help center, definitions, newsletter (MailerLite), short URL analytics, and site settings. All features toggleable.
 
-1. Press the "Use this template" button at the top of this repo to create a new repo with the contents of this marketing-suite.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Make something great!
----
-<!--/delete-->
+## Features
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+- **Blog** - Posts, authors, categories, SEO fields
+- **Landing Pages** - Builder with 14 section types, AI generation (Anthropic), templates
+- **Events** - Calendar widget, consultation slots, capacity management, submission tracking
+- **FAQ** - Sortable FAQ items
+- **Help Center** - Categories, articles, search, article feedback
+- **Definitions** - Glossary/terminology management
+- **Newsletter** - Subscriber management, MailerLite integration
+- **Short URLs** - Analytics dashboards, UTM tracking, conversion metrics
+- **Site Settings** - Social media, contact info, tracking pixels
+- **Translations** - BG/EN multi-language support via Spatie Translatable
 
 ## Installation
 
-You can install the package via composer:
+Install via Composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require vasilgerginski/filament-marketing-suite
 ```
 
-> [!IMPORTANT]
-> If you have not set up a custom theme and are using Filament Panels follow the instructions in the [Filament Docs](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme) first.
-
-After setting up a custom theme add the plugin's views to your theme css file or your app's css file if using the standalone packages.
-
-```css
-@source '../../../../vendor/:vendor_slug/:package_slug/resources/**/*.blade.php';
-```
-
-You can publish and run the migrations with:
+Publish and run the migrations:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
+php artisan vendor:publish --tag="marketing-suite-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
+Publish the config file:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="marketing-suite-config"
 ```
 
-Optionally, you can publish the views using
+Add the plugin's views to your theme CSS:
 
-```bash
-php artisan vendor:publish --tag=":package_slug-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
+```css
+@source '../../../../vendor/vasilgerginski/filament-marketing-suite/resources/**/*.blade.php';
 ```
 
 ## Usage
 
+Register the plugin in your panel provider:
+
 ```php
-$variable = new VasilGerginski\MarketingSuite();
-echo $variable->echoPhrase('Hello, VasilGerginski!');
+use VasilGerginski\MarketingSuite\MarketingSuitePlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            MarketingSuitePlugin::make(),
+        ]);
+}
+```
+
+### Feature Toggles
+
+All features are enabled by default. Disable any you don't need:
+
+```php
+MarketingSuitePlugin::make()
+    ->blog()
+    ->landingPages()
+    ->events()
+    ->faq(false)
+    ->helpCenter(false)
+    ->definitions()
+    ->newsletter()
+    ->shortUrls()
+    ->siteSettings()
+```
+
+### Optional Dependencies
+
+```bash
+# AI landing page generation
+composer require anthropic-ai/sdk
+
+# MailerLite newsletter integration
+composer require mailerlite/mailerlite-php
+
+# Short URL tracking
+composer require ashallendesign/short-url
+
+# Sitemap generation
+composer require spatie/laravel-sitemap
 ```
 
 ## Testing
@@ -87,7 +114,7 @@ Please review [our security policy](.github/SECURITY.md) on how to report securi
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Vasil Gerginski](https://github.com/vasilGerginski)
 - [All Contributors](../../contributors)
 
 ## License
