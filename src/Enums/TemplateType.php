@@ -14,7 +14,7 @@ enum TemplateType: string implements HasLabel
     case Document = 'document';
     case Contract = 'contract';
 
-    public function getLabel(): string|Htmlable|null
+    public function getLabel(): string | Htmlable | null
     {
         return match ($this) {
             self::Email => __('Email'),

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire;
 
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
 use VasilGerginski\MarketingSuite\Jobs\SyncSubscriberToMailerLiteJob;
 use VasilGerginski\MarketingSuite\Models\NewsletterSubscriber;
 use VasilGerginski\MarketingSuite\Settings\SiteSettings;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
 
 class NewsletterSubscribe extends Component
 {

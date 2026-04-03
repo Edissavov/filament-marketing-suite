@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\Blog;
 
-use VasilGerginski\MarketingSuite\Models\BlogPost;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use VasilGerginski\MarketingSuite\Models\BlogPost;
 
 #[Layout('components.layouts.public')]
 class Index extends Component

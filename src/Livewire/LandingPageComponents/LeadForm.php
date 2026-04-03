@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\LandingPageComponents;
 
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
 use VasilGerginski\MarketingSuite\Jobs\SyncSubscriberToMailerLiteJob;
 use VasilGerginski\MarketingSuite\Models\EventSubmission;
 use VasilGerginski\MarketingSuite\Models\LandingPage;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
 
 class LeadForm extends Component
 {
@@ -65,7 +65,7 @@ class LeadForm extends Component
                 $rule .= '|email';
             }
 
-            $rules['formData.'.$field['name']] = $rule;
+            $rules['formData.' . $field['name']] = $rule;
         }
 
         if (! empty($rules)) {

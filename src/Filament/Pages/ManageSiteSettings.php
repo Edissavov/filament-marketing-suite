@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Pages;
 
-use VasilGerginski\MarketingSuite\Services\MailerLiteService;
-use VasilGerginski\MarketingSuite\Settings\SiteSettings;
 use BackedEnum;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -13,10 +11,12 @@ use Filament\Pages\SettingsPage;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
+use VasilGerginski\MarketingSuite\Services\MailerLiteService;
+use VasilGerginski\MarketingSuite\Settings\SiteSettings;
 
 class ManageSiteSettings extends SettingsPage
 {
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     protected static string $settings = SiteSettings::class;
 
@@ -25,7 +25,7 @@ class ManageSiteSettings extends SettingsPage
         return __('Site Settings');
     }
 
-    public function getHeading(): string|Htmlable
+    public function getHeading(): string | Htmlable
     {
         return __('Site Settings');
     }

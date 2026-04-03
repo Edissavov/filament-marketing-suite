@@ -2,9 +2,9 @@
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\NewsletterSubscribers\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\NewsletterSubscribers\NewsletterSubscriberResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use VasilGerginski\MarketingSuite\Filament\Resources\NewsletterSubscribers\NewsletterSubscriberResource;
 
 class ListNewsletterSubscribers extends ListRecords
 {

@@ -1,10 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\FaqItemResource\Pages;
-use VasilGerginski\MarketingSuite\Models\FaqItem;
 use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
 use BackedEnum;
 use Filament\Forms\Components\Textarea;
@@ -16,12 +15,14 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use VasilGerginski\MarketingSuite\Filament\Resources\FaqItemResource\Pages;
+use VasilGerginski\MarketingSuite\Models\FaqItem;
 
 class FaqItemResource extends Resource
 {
     protected static ?string $model = FaqItem::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedQuestionMarkCircle;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedQuestionMarkCircle;
 
     public static function getModelLabel(): string
     {

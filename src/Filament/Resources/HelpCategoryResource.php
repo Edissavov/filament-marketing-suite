@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\HelpCategoryResource\Pages;
-use VasilGerginski\MarketingSuite\Models\HelpCategory;
 use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
 use BackedEnum;
 use Filament\Forms\Components\TextInput;
@@ -17,12 +15,14 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use VasilGerginski\MarketingSuite\Filament\Resources\HelpCategoryResource\Pages;
+use VasilGerginski\MarketingSuite\Models\HelpCategory;
 
 class HelpCategoryResource extends Resource
 {
     protected static ?string $model = HelpCategory::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookOpen;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedBookOpen;
 
     public static function getModelLabel(): string
     {

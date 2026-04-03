@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\BlogPostResource\Pages;
-use VasilGerginski\MarketingSuite\Models\BlogPost;
+use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
 use BackedEnum;
 use Filament\Actions\Action;
-use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -23,12 +21,14 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use VasilGerginski\MarketingSuite\Filament\Resources\BlogPostResource\Pages;
+use VasilGerginski\MarketingSuite\Models\BlogPost;
 
 class BlogPostResource extends Resource
 {
     protected static ?string $model = BlogPost::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-text';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-document-text';
 
     public static function getModelLabel(): string
     {

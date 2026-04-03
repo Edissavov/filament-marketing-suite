@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\Pages;
 
-use VasilGerginski\MarketingSuite\Models\Author;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use VasilGerginski\MarketingSuite\Models\Author;
 
 #[Layout('components.layouts.public')]
 class OurAuthors extends Component

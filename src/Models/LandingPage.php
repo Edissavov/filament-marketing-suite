@@ -97,6 +97,6 @@ class LandingPage extends Model
             return null;
         }
 
-        return route('landing-page', $this->slug).'?'.http_build_query($params);
+        return route('landing-page', $this->slug) . '?' . http_build_query($params);
     }
 }

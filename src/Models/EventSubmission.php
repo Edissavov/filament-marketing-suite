@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace VasilGerginski\MarketingSuite\Models;
 
 use AshAllenDesign\ShortURL\Models\ShortURLVisit;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,8 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $event_slot_id
  * @property string $section_type
  * @property array<string, mixed>|null $data
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property-read Event $event
  * @property-read LandingPage|null $landingPage
  * @property-read ShortURLVisit|null $shortUrlVisit

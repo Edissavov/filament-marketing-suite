@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets;
 
-use VasilGerginski\MarketingSuite\Models\ShortUrl;
-use VasilGerginski\MarketingSuite\Models\ShortUrlVisit;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Database\Eloquent\Model;
+use VasilGerginski\MarketingSuite\Models\ShortUrl;
+use VasilGerginski\MarketingSuite\Models\ShortUrlVisit;
 
 class TopOperatingSystemsWidget extends ChartWidget
 {
@@ -15,7 +15,7 @@ class TopOperatingSystemsWidget extends ChartWidget
 
     protected bool $isCollapsible = true;
 
-    protected int|string|array $columnSpan = 1;
+    protected int | string | array $columnSpan = 1;
 
     public function getHeading(): string
     {

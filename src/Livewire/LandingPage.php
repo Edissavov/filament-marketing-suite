@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire;
 
-use VasilGerginski\MarketingSuite\Models\LandingPage as LandingPageModel;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use VasilGerginski\MarketingSuite\Models\LandingPage as LandingPageModel;
 
 #[Layout('components.layouts.landing')]
 class LandingPage extends Component

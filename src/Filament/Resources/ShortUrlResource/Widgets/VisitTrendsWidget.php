@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets;
 
-use VasilGerginski\MarketingSuite\Models\EventSubmission;
-use VasilGerginski\MarketingSuite\Models\ShortUrl;
-use VasilGerginski\MarketingSuite\Models\ShortUrlVisit;
 use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Illuminate\Database\Eloquent\Model;
+use VasilGerginski\MarketingSuite\Models\EventSubmission;
+use VasilGerginski\MarketingSuite\Models\ShortUrl;
+use VasilGerginski\MarketingSuite\Models\ShortUrlVisit;
 
 class VisitTrendsWidget extends ChartWidget
 {
@@ -18,7 +18,7 @@ class VisitTrendsWidget extends ChartWidget
 
     protected bool $isCollapsible = true;
 
-    protected int|string|array $columnSpan = 1;
+    protected int | string | array $columnSpan = 1;
 
     public function getHeading(): string
     {

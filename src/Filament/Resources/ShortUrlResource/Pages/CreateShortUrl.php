@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource;
 use VasilGerginski\FilamentShortUrl\Filament\Resources\ShortUrlResource\Pages\CreateShortUrl as BaseCreateShortUrl;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource;
 
 class CreateShortUrl extends BaseCreateShortUrl
 {

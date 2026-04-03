@@ -2,8 +2,8 @@
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\NewsletterSubscribers\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\NewsletterSubscribers\NewsletterSubscriberResource;
 use Filament\Resources\Pages\CreateRecord;
+use VasilGerginski\MarketingSuite\Filament\Resources\NewsletterSubscribers\NewsletterSubscriberResource;
 
 class CreateNewsletterSubscriber extends CreateRecord
 {

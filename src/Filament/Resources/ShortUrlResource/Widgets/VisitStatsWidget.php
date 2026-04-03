@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets;
 
-use VasilGerginski\MarketingSuite\Models\EventSubmission;
-use VasilGerginski\MarketingSuite\Models\ShortUrl;
-use VasilGerginski\MarketingSuite\Models\ShortUrlVisit;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Model;
+use VasilGerginski\MarketingSuite\Models\EventSubmission;
+use VasilGerginski\MarketingSuite\Models\ShortUrl;
+use VasilGerginski\MarketingSuite\Models\ShortUrlVisit;
 
 class VisitStatsWidget extends BaseWidget
 {
@@ -54,8 +54,8 @@ class VisitStatsWidget extends BaseWidget
             if ($avgSeconds !== null && $avgSeconds > 0) {
                 $avgMinutes = round($avgSeconds / 60);
                 $avgTimeToConvert = $avgMinutes < 60
-                    ? $avgMinutes.__('m')
-                    : round($avgMinutes / 60, 1).__('h');
+                    ? $avgMinutes . __('m')
+                    : round($avgMinutes / 60, 1) . __('h');
             }
         }
 
@@ -66,11 +66,11 @@ class VisitStatsWidget extends BaseWidget
             if ($totalConversions > 0) {
                 $cost = round($this->record->price / $totalConversions, 2);
                 $currency = $this->record->currency ?? 'EUR';
-                $costPerConversion = number_format($cost, 2).' '.$currency;
-                $costDescription = __(':cost per conversion', ['cost' => $this->record->price.' '.$currency]);
+                $costPerConversion = number_format($cost, 2) . ' ' . $currency;
+                $costDescription = __(':cost per conversion', ['cost' => $this->record->price . ' ' . $currency]);
             } else {
                 $costPerConversion = __('No conversions');
-                $costDescription = __('Campaign cost: :cost', ['cost' => $this->record->price.' '.($this->record->currency ?? 'EUR')]);
+                $costDescription = __('Campaign cost: :cost', ['cost' => $this->record->price . ' ' . ($this->record->currency ?? 'EUR')]);
             }
         }
 
@@ -80,7 +80,7 @@ class VisitStatsWidget extends BaseWidget
                 ->color('primary'),
 
             Stat::make(__('Conversions'), number_format($totalConversions))
-                ->description($conversionRate.'% '.__('conversion rate'))
+                ->description($conversionRate . '% ' . __('conversion rate'))
                 ->color($totalConversions > 0 ? 'success' : 'gray'),
 
             Stat::make(__('Avg. Time to Convert'), $avgTimeToConvert ?? __('N/A'))

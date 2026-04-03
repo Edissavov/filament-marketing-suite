@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\HelpArticleResource\Pages;
-use VasilGerginski\MarketingSuite\Models\HelpArticle;
-use VasilGerginski\MarketingSuite\Models\HelpCategory;
 use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
 use BackedEnum;
 use Filament\Forms\Components\RichEditor;
@@ -21,12 +18,15 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use VasilGerginski\MarketingSuite\Filament\Resources\HelpArticleResource\Pages;
+use VasilGerginski\MarketingSuite\Models\HelpArticle;
+use VasilGerginski\MarketingSuite\Models\HelpCategory;
 
 class HelpArticleResource extends Resource
 {
     protected static ?string $model = HelpArticle::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     public static function getModelLabel(): string
     {

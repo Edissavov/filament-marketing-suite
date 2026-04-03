@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\Pages;
 
-use VasilGerginski\MarketingSuite\Models\BlogPost;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use VasilGerginski\MarketingSuite\Models\BlogPost;
 
 #[Layout('components.layouts.public')]
 class Blog extends Component
@@ -38,7 +38,7 @@ class Blog extends Component
             'posts' => $posts,
             'categories' => ['financial', 'other', 'global', 'authorial'],
         ])
-            ->title(__('Blog').' — '.config('app.name', 'Find2Be'))
+            ->title(__('Blog') . ' — ' . config('app.name', 'Find2Be'))
             ->layoutData([
                 'seoDescription' => __('Stay informed about all developments in the Find2Be world.'),
             ]);

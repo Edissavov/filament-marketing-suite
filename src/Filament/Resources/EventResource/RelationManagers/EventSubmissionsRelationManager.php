@@ -45,7 +45,7 @@ class EventSubmissionsRelationManager extends RelationManager
                             return '-';
                         }
 
-                        return $record->eventSlot->date->format('d M Y').' '.$record->eventSlot->start_time;
+                        return $record->eventSlot->date->format('d M Y') . ' ' . $record->eventSlot->start_time;
                     })
                     ->placeholder('-'),
                 TextColumn::make('data')

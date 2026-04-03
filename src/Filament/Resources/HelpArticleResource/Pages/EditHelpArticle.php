@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\HelpArticleResource\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\HelpArticleResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use VasilGerginski\MarketingSuite\Filament\Resources\HelpArticleResource;
 
 class EditHelpArticle extends EditRecord
 {

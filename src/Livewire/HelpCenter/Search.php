@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\HelpCenter;
 
-use VasilGerginski\MarketingSuite\Models\HelpArticle;
-use VasilGerginski\MarketingSuite\Models\HelpCategory;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use VasilGerginski\MarketingSuite\Models\HelpArticle;
+use VasilGerginski\MarketingSuite\Models\HelpCategory;
 
 #[Layout('components.layouts.guest')]
 class Search extends Component
@@ -26,7 +26,7 @@ class Search extends Component
         }
 
         $escaped = e($text);
-        $pattern = '/('.preg_quote(e($term), '/').')/iu';
+        $pattern = '/(' . preg_quote(e($term), '/') . ')/iu';
 
         return preg_replace($pattern, '<mark class="bg-yellow-200 rounded px-0.5">$1</mark>', $escaped);
     }

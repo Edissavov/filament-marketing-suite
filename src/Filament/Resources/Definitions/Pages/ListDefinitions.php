@@ -2,9 +2,9 @@
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\Definitions\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\Definitions\DefinitionResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use VasilGerginski\MarketingSuite\Filament\Resources\Definitions\DefinitionResource;
 
 class ListDefinitions extends ListRecords
 {

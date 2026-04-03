@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\HelpCategoryResource\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\HelpCategoryResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use VasilGerginski\MarketingSuite\Filament\Resources\HelpCategoryResource;
 
 class ListHelpCategories extends ListRecords
 {

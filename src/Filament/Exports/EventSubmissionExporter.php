@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Exports;
 
-use VasilGerginski\MarketingSuite\Models\EventSubmission;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
 use Illuminate\Support\Number;
+use VasilGerginski\MarketingSuite\Models\EventSubmission;
 
 class EventSubmissionExporter extends Exporter
 {
@@ -55,7 +55,7 @@ class EventSubmissionExporter extends Exporter
         ]);
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' '.__(
+            $body .= ' ' . __(
                 ':count rows failed to export.',
                 ['count' => Number::format($failedRowsCount)],
             );

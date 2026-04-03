@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\EventSubmissions\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\EventSubmissions\EventSubmissionResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
+use VasilGerginski\MarketingSuite\Filament\Resources\EventSubmissions\EventSubmissionResource;
 
 class ManageEventSubmissions extends ManageRecords
 {

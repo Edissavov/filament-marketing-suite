@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\FaqItemResource\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\FaqItemResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use VasilGerginski\MarketingSuite\Filament\Resources\FaqItemResource;
 
 class EditFaqItem extends EditRecord
 {

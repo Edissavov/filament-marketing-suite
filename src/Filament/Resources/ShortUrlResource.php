@@ -4,15 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Pages;
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\RelationManagers\ShortUrlSubmissionsRelationManager;
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\TopBrowsersWidget;
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\TopOperatingSystemsWidget;
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\TrafficSourcesWidget;
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\VisitDeviceBreakdownWidget;
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\VisitStatsWidget;
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\VisitTrendsWidget;
-use VasilGerginski\MarketingSuite\Models\ShortUrl;
 use Filament\Actions;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -23,6 +14,15 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use VasilGerginski\FilamentShortUrl\Filament\Resources\ShortUrlResource as BaseShortUrlResource;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Pages;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\RelationManagers\ShortUrlSubmissionsRelationManager;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\TopBrowsersWidget;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\TopOperatingSystemsWidget;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\TrafficSourcesWidget;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\VisitDeviceBreakdownWidget;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\VisitStatsWidget;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\VisitTrendsWidget;
+use VasilGerginski\MarketingSuite\Models\ShortUrl;
 
 class ShortUrlResource extends BaseShortUrlResource
 {

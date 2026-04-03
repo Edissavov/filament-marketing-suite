@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\Concerns\HasSectionBlocks;
-use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource\Pages;
-use VasilGerginski\MarketingSuite\Models\Event;
-use VasilGerginski\MarketingSuite\Models\LandingPage;
-use VasilGerginski\MarketingSuite\Services\MailerLiteService;
+use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -32,6 +27,11 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
+use VasilGerginski\MarketingSuite\Filament\Resources\Concerns\HasSectionBlocks;
+use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource\Pages;
+use VasilGerginski\MarketingSuite\Models\Event;
+use VasilGerginski\MarketingSuite\Models\LandingPage;
+use VasilGerginski\MarketingSuite\Services\MailerLiteService;
 
 class LandingPageResource extends Resource
 {
@@ -39,7 +39,7 @@ class LandingPageResource extends Resource
 
     protected static ?string $model = LandingPage::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-duplicate';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-document-duplicate';
 
     public static function getModelLabel(): string
     {
@@ -295,7 +295,7 @@ class LandingPageResource extends Resource
                     ->icon('heroicon-o-eye')
                     ->color('gray')
                     ->url(
-                        static fn (LandingPage $record): string => route('landing-page', $record->slug).'?preview=true',
+                        static fn (LandingPage $record): string => route('landing-page', $record->slug) . '?preview=true',
                     )
                     ->openUrlInNewTab(),
                 Action::make('duplicate')
@@ -305,8 +305,8 @@ class LandingPageResource extends Resource
                     ->requiresConfirmation()
                     ->action(static function (LandingPage $record): void {
                         $newPage = $record->replicate();
-                        $newPage->title = $record->title.' (Copy)';
-                        $newPage->slug = $record->slug.'-'.Str::random(5);
+                        $newPage->title = $record->title . ' (Copy)';
+                        $newPage->slug = $record->slug . '-' . Str::random(5);
                         $newPage->is_active = false;
                         $newPage->save();
 

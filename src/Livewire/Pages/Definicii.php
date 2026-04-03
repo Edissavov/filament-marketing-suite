@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\Pages;
 
-use VasilGerginski\MarketingSuite\Models\BlogPost;
-use VasilGerginski\MarketingSuite\Models\Definition;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use VasilGerginski\MarketingSuite\Models\BlogPost;
+use VasilGerginski\MarketingSuite\Models\Definition;
 
 #[Layout('components.layouts.public')]
 class Definicii extends Component

@@ -2,9 +2,9 @@
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\Authors\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\Authors\AuthorResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use VasilGerginski\MarketingSuite\Filament\Resources\Authors\AuthorResource;
 
 class EditAuthor extends EditRecord
 {

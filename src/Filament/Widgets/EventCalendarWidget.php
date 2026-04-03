@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Widgets;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\EventResource;
-use VasilGerginski\MarketingSuite\Models\Event;
 use Carbon\Carbon;
 use Guava\Calendar\Enums\CalendarViewType;
 use Guava\Calendar\Filament\Actions\CreateAction;
@@ -16,6 +14,8 @@ use Guava\Calendar\ValueObjects\CalendarEvent;
 use Guava\Calendar\ValueObjects\DateClickInfo;
 use Guava\Calendar\ValueObjects\FetchInfo;
 use Illuminate\Support\Collection;
+use VasilGerginski\MarketingSuite\Filament\Resources\EventResource;
+use VasilGerginski\MarketingSuite\Models\Event;
 
 class EventCalendarWidget extends CalendarWidget
 {
@@ -29,7 +29,7 @@ class EventCalendarWidget extends CalendarWidget
 
     protected ?string $defaultEventClickAction = 'edit';
 
-    protected function getEvents(FetchInfo $info): Collection|array
+    protected function getEvents(FetchInfo $info): Collection | array
     {
         return Event::query()
             ->where('is_active', true)

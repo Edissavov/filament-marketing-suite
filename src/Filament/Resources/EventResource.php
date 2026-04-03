@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\EventResource\Pages;
-use VasilGerginski\MarketingSuite\Filament\Resources\EventResource\RelationManagers\EventSubmissionsRelationManager;
-use VasilGerginski\MarketingSuite\Models\Event;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
@@ -30,12 +27,15 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
+use VasilGerginski\MarketingSuite\Filament\Resources\EventResource\Pages;
+use VasilGerginski\MarketingSuite\Filament\Resources\EventResource\RelationManagers\EventSubmissionsRelationManager;
+use VasilGerginski\MarketingSuite\Models\Event;
 
 class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-calendar';
 
     public static function getModelLabel(): string
     {
@@ -127,7 +127,7 @@ class EventResource extends Resource
                             ->defaultItems(0)
                             ->columnSpanFull()
                             ->itemLabel(static fn (array $state): ?string => isset($state['date'], $state['start_time'])
-                                ? ($state['date'] ?? '').' '.$state['start_time'].' - '.($state['end_time'] ?? '')
+                                ? ($state['date'] ?? '') . ' ' . $state['start_time'] . ' - ' . ($state['end_time'] ?? '')
                                 : null),
                     ])
                     ->visible(static fn (callable $get): bool => $get('event_type') === 'consultation')
@@ -206,7 +206,7 @@ class EventResource extends Resource
                     ->requiresConfirmation()
                     ->action(static function (Event $record): void {
                         $newEvent = $record->replicate();
-                        $newEvent->name = $record->name.' ('.__('Copy').')';
+                        $newEvent->name = $record->name . ' (' . __('Copy') . ')';
                         $newEvent->is_active = false;
                         $newEvent->save();
 

@@ -10,6 +10,30 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use VasilGerginski\MarketingSuite\Commands\MarketingSuiteCommand;
+use VasilGerginski\MarketingSuite\Livewire\Blog\Index;
+use VasilGerginski\MarketingSuite\Livewire\Blog\Show;
+use VasilGerginski\MarketingSuite\Livewire\ContactForm;
+use VasilGerginski\MarketingSuite\Livewire\HelpCenter;
+use VasilGerginski\MarketingSuite\Livewire\HelpCenter\Search;
+use VasilGerginski\MarketingSuite\Livewire\LandingPage;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\ChallengesSection;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\CountdownTimer;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\CtaSection;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\EventRegistration;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\FaqSection;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\HeroSection;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\IconListSection;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\LeadForm;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\NewsletterSignup;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\PricingTable;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\ProductShowcase;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\SolutionSection;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\TestimonialsSection;
+use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\TrustIndicatorsSection;
+use VasilGerginski\MarketingSuite\Livewire\NewsletterSubscribe;
+use VasilGerginski\MarketingSuite\Livewire\Pages\Blog;
+use VasilGerginski\MarketingSuite\Livewire\Pages\Definicii;
+use VasilGerginski\MarketingSuite\Livewire\Pages\OurAuthors;
 use VasilGerginski\MarketingSuite\Testing\TestsMarketingSuite;
 
 class MarketingSuiteServiceProvider extends PackageServiceProvider
@@ -118,31 +142,31 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
 
     protected function registerLivewireComponents(): void
     {
-        Livewire::component('marketing-suite::blog.index', \VasilGerginski\MarketingSuite\Livewire\Blog\Index::class);
-        Livewire::component('marketing-suite::blog.show', \VasilGerginski\MarketingSuite\Livewire\Blog\Show::class);
-        Livewire::component('marketing-suite::landing-page', \VasilGerginski\MarketingSuite\Livewire\LandingPage::class);
-        Livewire::component('marketing-suite::newsletter-subscribe', \VasilGerginski\MarketingSuite\Livewire\NewsletterSubscribe::class);
-        Livewire::component('marketing-suite::help-center', \VasilGerginski\MarketingSuite\Livewire\HelpCenter::class);
-        Livewire::component('marketing-suite::help-center.search', \VasilGerginski\MarketingSuite\Livewire\HelpCenter\Search::class);
-        Livewire::component('marketing-suite::contact-form', \VasilGerginski\MarketingSuite\Livewire\ContactForm::class);
-        Livewire::component('marketing-suite::pages.blog', \VasilGerginski\MarketingSuite\Livewire\Pages\Blog::class);
-        Livewire::component('marketing-suite::pages.our-authors', \VasilGerginski\MarketingSuite\Livewire\Pages\OurAuthors::class);
-        Livewire::component('marketing-suite::pages.definicii', \VasilGerginski\MarketingSuite\Livewire\Pages\Definicii::class);
+        Livewire::component('marketing-suite::blog.index', Index::class);
+        Livewire::component('marketing-suite::blog.show', Show::class);
+        Livewire::component('marketing-suite::landing-page', LandingPage::class);
+        Livewire::component('marketing-suite::newsletter-subscribe', NewsletterSubscribe::class);
+        Livewire::component('marketing-suite::help-center', HelpCenter::class);
+        Livewire::component('marketing-suite::help-center.search', Search::class);
+        Livewire::component('marketing-suite::contact-form', ContactForm::class);
+        Livewire::component('marketing-suite::pages.blog', Blog::class);
+        Livewire::component('marketing-suite::pages.our-authors', OurAuthors::class);
+        Livewire::component('marketing-suite::pages.definicii', Definicii::class);
 
         // Landing Page Section Components
-        Livewire::component('marketing-suite::landing-page-components.hero-section', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\HeroSection::class);
-        Livewire::component('marketing-suite::landing-page-components.challenges-section', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\ChallengesSection::class);
-        Livewire::component('marketing-suite::landing-page-components.solution-section', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\SolutionSection::class);
-        Livewire::component('marketing-suite::landing-page-components.product-showcase', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\ProductShowcase::class);
-        Livewire::component('marketing-suite::landing-page-components.testimonials-section', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\TestimonialsSection::class);
-        Livewire::component('marketing-suite::landing-page-components.faq-section', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\FaqSection::class);
-        Livewire::component('marketing-suite::landing-page-components.cta-section', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\CtaSection::class);
-        Livewire::component('marketing-suite::landing-page-components.lead-form', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\LeadForm::class);
-        Livewire::component('marketing-suite::landing-page-components.pricing-table', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\PricingTable::class);
-        Livewire::component('marketing-suite::landing-page-components.icon-list-section', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\IconListSection::class);
-        Livewire::component('marketing-suite::landing-page-components.countdown-timer', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\CountdownTimer::class);
-        Livewire::component('marketing-suite::landing-page-components.event-registration', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\EventRegistration::class);
-        Livewire::component('marketing-suite::landing-page-components.newsletter-signup', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\NewsletterSignup::class);
-        Livewire::component('marketing-suite::landing-page-components.trust-indicators-section', \VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\TrustIndicatorsSection::class);
+        Livewire::component('marketing-suite::landing-page-components.hero-section', HeroSection::class);
+        Livewire::component('marketing-suite::landing-page-components.challenges-section', ChallengesSection::class);
+        Livewire::component('marketing-suite::landing-page-components.solution-section', SolutionSection::class);
+        Livewire::component('marketing-suite::landing-page-components.product-showcase', ProductShowcase::class);
+        Livewire::component('marketing-suite::landing-page-components.testimonials-section', TestimonialsSection::class);
+        Livewire::component('marketing-suite::landing-page-components.faq-section', FaqSection::class);
+        Livewire::component('marketing-suite::landing-page-components.cta-section', CtaSection::class);
+        Livewire::component('marketing-suite::landing-page-components.lead-form', LeadForm::class);
+        Livewire::component('marketing-suite::landing-page-components.pricing-table', PricingTable::class);
+        Livewire::component('marketing-suite::landing-page-components.icon-list-section', IconListSection::class);
+        Livewire::component('marketing-suite::landing-page-components.countdown-timer', CountdownTimer::class);
+        Livewire::component('marketing-suite::landing-page-components.event-registration', EventRegistration::class);
+        Livewire::component('marketing-suite::landing-page-components.newsletter-signup', NewsletterSignup::class);
+        Livewire::component('marketing-suite::landing-page-components.trust-indicators-section', TrustIndicatorsSection::class);
     }
 }

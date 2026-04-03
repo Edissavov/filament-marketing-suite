@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Models;
 
+use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,15 +14,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property int $event_id
- * @property \Carbon\CarbonImmutable $date
+ * @property CarbonImmutable $date
  * @property string $start_time
  * @property string $end_time
  * @property int $capacity
  * @property bool $is_available
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property-read Event $event
- * @property-read \Illuminate\Database\Eloquent\Collection<int, EventSubmission> $submissions
+ * @property-read Collection<int, EventSubmission> $submissions
  *
  * @mixin \Eloquent
  */

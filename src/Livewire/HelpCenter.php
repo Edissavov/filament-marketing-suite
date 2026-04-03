@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire;
 
-use VasilGerginski\MarketingSuite\Models\HelpArticle;
-use VasilGerginski\MarketingSuite\Models\HelpArticleFeedback;
-use VasilGerginski\MarketingSuite\Models\HelpCategory;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use VasilGerginski\MarketingSuite\Models\HelpArticle;
+use VasilGerginski\MarketingSuite\Models\HelpArticleFeedback;
+use VasilGerginski\MarketingSuite\Models\HelpCategory;
 
 #[Layout('components.layouts.guest')]
 class HelpCenter extends Component

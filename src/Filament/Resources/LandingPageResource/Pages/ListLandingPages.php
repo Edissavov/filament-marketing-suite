@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource;
-use VasilGerginski\MarketingSuite\Models\Event;
-use VasilGerginski\MarketingSuite\Models\LandingPage;
-use VasilGerginski\MarketingSuite\Services\LandingPageAiGenerator;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\Textarea;
@@ -15,6 +11,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Str;
+use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource;
+use VasilGerginski\MarketingSuite\Models\Event;
+use VasilGerginski\MarketingSuite\Models\LandingPage;
+use VasilGerginski\MarketingSuite\Services\LandingPageAiGenerator;
 
 class ListLandingPages extends ListRecords
 {

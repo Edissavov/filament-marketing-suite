@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource;
-use VasilGerginski\MarketingSuite\Models\ShortUrl;
-use VasilGerginski\MarketingSuite\Services\LandingPageAiGenerator;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource;
+use VasilGerginski\MarketingSuite\Models\ShortUrl;
+use VasilGerginski\MarketingSuite\Services\LandingPageAiGenerator;
 
 class EditLandingPage extends EditRecord
 {
@@ -69,8 +69,8 @@ class EditLandingPage extends EditRecord
                     if (! $shortUrl) {
                         $shortUrl = ShortUrl::query()->create([
                             'destination_url' => $this->record->url,
-                            'url_key' => 'lp-'.$this->record->slug,
-                            'default_short_url' => url('/short/lp-'.$this->record->slug),
+                            'url_key' => 'lp-' . $this->record->slug,
+                            'default_short_url' => url('/short/lp-' . $this->record->slug),
                             'description' => $this->record->title,
                             'track_visits' => true,
                             'track_ip_address' => true,
@@ -87,7 +87,7 @@ class EditLandingPage extends EditRecord
 
                     Notification::make()
                         ->title(__('Short URL'))
-                        ->body(url('/short/'.$shortUrl->url_key))
+                        ->body(url('/short/' . $shortUrl->url_key))
                         ->success()
                         ->send();
                 }),
@@ -95,7 +95,7 @@ class EditLandingPage extends EditRecord
                 ->label(__('Preview'))
                 ->icon('heroicon-o-eye')
                 ->color('gray')
-                ->url(fn (): string => route('landing-page', $this->record->slug).'?preview=true')
+                ->url(fn (): string => route('landing-page', $this->record->slug) . '?preview=true')
                 ->openUrlInNewTab(),
             DeleteAction::make(),
         ];

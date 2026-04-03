@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\LandingPageComponents;
 
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
 use VasilGerginski\MarketingSuite\Jobs\SyncSubscriberToMailerLiteJob;
 use VasilGerginski\MarketingSuite\Models\EventSubmission;
 use VasilGerginski\MarketingSuite\Models\LandingPage;
 use VasilGerginski\MarketingSuite\Models\NewsletterSubscriber;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
 
 class NewsletterSignup extends Component
 {

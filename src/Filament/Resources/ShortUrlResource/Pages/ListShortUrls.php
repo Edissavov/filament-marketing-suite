@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Pages;
 
-use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource;
-use VasilGerginski\MarketingSuite\Models\ShortUrl;
 use Filament\Actions\CreateAction;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
+use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource;
+use VasilGerginski\MarketingSuite\Models\ShortUrl;
 
 class ListShortUrls extends ListRecords
 {

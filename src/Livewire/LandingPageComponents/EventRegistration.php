@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\LandingPageComponents;
 
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
 use VasilGerginski\MarketingSuite\Jobs\SyncSubscriberToMailerLiteJob;
 use VasilGerginski\MarketingSuite\Models\EventSubmission;
 use VasilGerginski\MarketingSuite\Models\LandingPage;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
 
 class EventRegistration extends Component
 {
@@ -84,7 +84,7 @@ class EventRegistration extends Component
                 $fieldRules[] = 'email';
             }
 
-            $rules['formData.'.$field['name']] = $fieldRules;
+            $rules['formData.' . $field['name']] = $fieldRules;
         }
 
         if (! empty($rules)) {

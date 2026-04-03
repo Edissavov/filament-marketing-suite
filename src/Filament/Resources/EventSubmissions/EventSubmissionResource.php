@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\EventSubmissions;
 
-use VasilGerginski\MarketingSuite\Filament\Exports\EventSubmissionExporter;
-use VasilGerginski\MarketingSuite\Filament\Resources\EventSubmissions\Pages\ManageEventSubmissions;
-use VasilGerginski\MarketingSuite\Models\EventSubmission;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -20,6 +17,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use VasilGerginski\MarketingSuite\Filament\Exports\EventSubmissionExporter;
+use VasilGerginski\MarketingSuite\Filament\Resources\EventSubmissions\Pages\ManageEventSubmissions;
+use VasilGerginski\MarketingSuite\Models\EventSubmission;
 
 class EventSubmissionResource extends Resource
 {
@@ -27,7 +27,7 @@ class EventSubmissionResource extends Resource
 
     protected static bool $shouldRegisterNavigation = true;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-user-group';
 
     public static function getModelLabel(): string
     {

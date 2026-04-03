@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Livewire\Blog;
 
-use VasilGerginski\MarketingSuite\Models\BlogPost;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use VasilGerginski\MarketingSuite\Models\BlogPost;
 
 #[Layout('components.layouts.public')]
 class Show extends Component
@@ -40,7 +40,7 @@ class Show extends Component
                 ->limit(3)
                 ->get(),
         ])
-            ->title(($this->post->meta_title ?: $this->post->title).' — '.config('app.name', 'Find2Be'))
+            ->title(($this->post->meta_title ?: $this->post->title) . ' — ' . config('app.name', 'Find2Be'))
             ->layoutData([
                 'seoDescription' => $this->post->meta_description ?: str($this->post->content)->stripTags()->limit(160)->toString(),
                 'seoImage' => $this->post->image ? asset($this->post->image) : null,
