@@ -10,7 +10,7 @@ use Livewire\Component;
 use VasilGerginski\MarketingSuite\Models\BlogPost;
 use VasilGerginski\MarketingSuite\Models\Definition;
 
-#[Layout('components.layouts.public')]
+#[Layout('marketing-suite::components.layouts.public')]
 class Definicii extends Component
 {
     public function render(): View

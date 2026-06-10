@@ -10,7 +10,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use VasilGerginski\MarketingSuite\Models\BlogPost;
 
-#[Layout('components.layouts.public')]
+#[Layout('marketing-suite::components.layouts.public')]
 class Index extends Component
 {
     use WithPagination;

@@ -20,7 +20,7 @@ class CtaSection extends Component
     /** @var array<int, string> */
     public array $features = [];
 
-    /** @var array{content: string, name: string, role: string} */
+    /** @var array{content?: string, name?: string, role?: string} */
     public array $testimonial = [];
 
     public function mount(

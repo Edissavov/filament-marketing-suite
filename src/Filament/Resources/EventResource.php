@@ -66,7 +66,10 @@ class EventResource extends Resource
                         Select::make('event_type')
                             ->label(__('Event Type'))
                             ->options([
-                                'lead_generationRepeater' => __('Consultation'),
+                                'lead_generation' => __('Lead Generation'),
+                                'event_registration' => __('Event Registration'),
+                                'newsletter' => __('Newsletter'),
+                                'consultation' => __('Consultation'),
                             ])
                             ->default('lead_generation')
                             ->required()
@@ -127,7 +130,7 @@ class EventResource extends Resource
                             ->defaultItems(0)
                             ->columnSpanFull()
                             ->itemLabel(static fn (array $state): ?string => isset($state['date'], $state['start_time'])
-                                ? ($state['date'] ?? '') . ' ' . $state['start_time'] . ' - ' . ($state['end_time'] ?? '')
+                                ? $state['date'] . ' ' . $state['start_time'] . ' - ' . ($state['end_time'] ?? '')
                                 : null),
                     ])
                     ->visible(static fn (callable $get): bool => $get('event_type') === 'consultation')

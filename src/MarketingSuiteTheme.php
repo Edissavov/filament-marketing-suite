@@ -5,14 +5,14 @@ namespace VasilGerginski\MarketingSuite;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Assets\Theme;
-use Filament\Support\Color;
+use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentAsset;
 
-class MarketingSuite implements Plugin
+class MarketingSuiteTheme implements Plugin
 {
     public function getId(): string
     {
-        return 'marketing-suite';
+        return 'marketing-suite-theme';
     }
 
     public function register(Panel $panel): void
@@ -23,17 +23,24 @@ class MarketingSuite implements Plugin
 
         $panel
             ->font('DM Sans')
-            ->primaryColor(Color::Amber)
-            ->secondaryColor(Color::Gray)
-            ->warningColor(Color::Amber)
-            ->dangerColor(Color::Rose)
-            ->successColor(Color::Green)
-            ->grayColor(Color::Gray)
+            ->colors([
+                'primary' => Color::Amber,
+                'secondary' => Color::Gray,
+                'warning' => Color::Amber,
+                'danger' => Color::Rose,
+                'success' => Color::Green,
+                'gray' => Color::Gray,
+            ])
             ->theme('marketing-suite');
     }
 
     public function boot(Panel $panel): void
     {
         //
+    }
+
+    public static function make(): static
+    {
+        return app(static::class);
     }
 }

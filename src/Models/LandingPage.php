@@ -15,7 +15,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $title
  * @property string $slug
  * @property string|null $meta_description
- * @property array<int, array{type: string, data: array<string, mixed>}>|null $sections
+ * @property array<array-key, array{id?: string, type?: string, data?: array<string, mixed>}>|null $sections
  * @property string $goal_type
  * @property string $template
  * @property bool $is_active
@@ -29,6 +29,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string|null $mailerlite_group_id
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
+ * @property-read string $url
  * @property-read string|null $tracking_url
  * @property-read Event|null $event
  *
@@ -85,6 +86,14 @@ class LandingPage extends Model
         return $this->belongsTo(Event::class);
     }
 
+    /**
+     * Get the public URL of the landing page.
+     */
+    public function getUrlAttribute(): string
+    {
+        return route('marketing-suite.landing', $this->slug);
+    }
+
     public function getTrackingUrlAttribute(): ?string
     {
         $params = array_filter([
@@ -97,6 +106,6 @@ class LandingPage extends Model
             return null;
         }
 
-        return route('landing-page', $this->slug) . '?' . http_build_query($params);
+        return $this->url . '?' . http_build_query($params);
     }
 }

@@ -12,4 +12,10 @@ parameters:
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
+    ignoreErrors:
+        # False positive: this is a package config file. It is published into the
+        # host app's config directory, where env() calls are valid as usual.
+        -
+            identifier: larastan.noEnvCallsOutsideOfConfig
+            path: config/marketing-suite.php
 

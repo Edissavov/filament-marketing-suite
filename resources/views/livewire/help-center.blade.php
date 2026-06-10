@@ -3,10 +3,10 @@
     <div class="bg-white border-b">
         <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
             <nav class="flex items-center gap-2 text-sm text-gray-500">
-                <a href="{{ route('help-center') }}" class="hover:text-[#1565C0] {{ !$category ? 'font-medium text-[#1565C0]' : '' }}">{{ __('Help Center') }}</a>
+                <a href="{{ route('marketing-suite.help') }}" class="hover:text-[#1565C0] {{ !$category ? 'font-medium text-[#1565C0]' : '' }}">{{ __('Help Center') }}</a>
                 @if($category)
                     <span>/</span>
-                    <a href="{{ route('help-center.category', $category) }}" class="hover:text-[#1565C0] {{ !$article ? 'font-medium text-[#1565C0]' : '' }}">{{ __($category->name) }}</a>
+                    <a href="{{ route('marketing-suite.help.category', $category) }}" class="hover:text-[#1565C0] {{ !$article ? 'font-medium text-[#1565C0]' : '' }}">{{ __($category->name) }}</a>
                 @endif
                 @if($article)
                     <span>/</span>
@@ -25,7 +25,7 @@
                     class="transition-all duration-700 delay-100 ease-apple text-3xl font-bold sm:text-4xl">{{ __('How can we help you?') }}</h1>
                 <p :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
                    class="transition-all duration-700 delay-200 ease-apple mt-3 text-blue-100">{{ __('Find answers to your questions about the platform') }}</p>
-                <form action="{{ route('help-center.search') }}" method="GET" class="relative mt-8">
+                <form action="{{ route('marketing-suite.help.search') }}" method="GET" class="relative mt-8">
                     <input
                         type="text"
                         name="q"
@@ -43,7 +43,7 @@
             <div class="mx-auto max-w-7xl" x-data="{ shown: false }" x-intersect.margin.-50px.once="shown = true">
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     @foreach($categories as $cat)
-                        <a href="{{ route('help-center.category', $cat) }}"
+                        <a href="{{ route('marketing-suite.help.category', $cat) }}"
                             wire:key="cat-{{ $cat->id }}"
                             :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
                             class="transition-all duration-700 ease-apple group rounded-xl bg-white p-6 shadow-sm hover:shadow-md hover:-translate-y-1"
@@ -72,7 +72,7 @@
                 <aside class="hidden w-64 shrink-0 lg:block">
                     <nav class="sticky top-20 space-y-1">
                         @foreach($categories as $cat)
-                            <a href="{{ route('help-center.category', $cat) }}"
+                            <a href="{{ route('marketing-suite.help.category', $cat) }}"
                                 class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition {{ $cat->id === $category->id ? 'bg-[#1565C0] text-white font-medium' : 'text-gray-600 hover:bg-white hover:text-gray-900' }}">
                                 @if($cat->icon)
                                     <x-dynamic-component :component="$cat->icon" class="h-4 w-4 shrink-0" />
@@ -112,7 +112,7 @@
                                                 {!! $art->content !!}
                                             </div>
                                             <div class="mt-4">
-                                                <a href="{{ route('help-center.article', [$category, $art]) }}" class="text-sm font-medium text-[#1565C0] hover:underline">
+                                                <a href="{{ route('marketing-suite.help.article', [$category, $art]) }}" class="text-sm font-medium text-[#1565C0] hover:underline">
                                                     {{ __('Read full article') }} &rarr;
                                                 </a>
                                             </div>
@@ -133,7 +133,7 @@
                 <aside class="hidden w-64 shrink-0 lg:block">
                     <nav class="sticky top-20 space-y-1">
                         @foreach($categories as $cat)
-                            <a href="{{ route('help-center.category', $cat) }}"
+                            <a href="{{ route('marketing-suite.help.category', $cat) }}"
                                 class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition {{ $category && $cat->id === $category->id ? 'bg-[#1565C0] text-white font-medium' : 'text-gray-600 hover:bg-white hover:text-gray-900' }}">
                                 @if($cat->icon)
                                     <x-dynamic-component :component="$cat->icon" class="h-4 w-4 shrink-0" />
@@ -152,12 +152,12 @@
                             <div class="flex items-center justify-between border-b px-8 py-3">
                                 <div>
                                     @if($previousArticle)
-                                        <a href="{{ route('help-center.article', [$category, $previousArticle]) }}" class="inline-flex items-center gap-1 text-sm font-medium text-[#1565C0] hover:underline">
+                                        <a href="{{ route('marketing-suite.help.article', [$category, $previousArticle]) }}" class="inline-flex items-center gap-1 text-sm font-medium text-[#1565C0] hover:underline">
                                             <x-tabler-arrow-left class="h-4 w-4" />
                                             {{ __($previousArticle->title) }}
                                         </a>
                                     @else
-                                        <a href="{{ route('help-center.category', $category) }}" class="inline-flex items-center gap-1 text-sm font-medium text-[#1565C0] hover:underline">
+                                        <a href="{{ route('marketing-suite.help.category', $category) }}" class="inline-flex items-center gap-1 text-sm font-medium text-[#1565C0] hover:underline">
                                             <x-tabler-arrow-left class="h-4 w-4" />
                                             {{ __('Back to :category', ['category' => __($category->name)]) }}
                                         </a>
@@ -165,7 +165,7 @@
                                 </div>
                                 <div>
                                     @if($nextArticle)
-                                        <a href="{{ route('help-center.article', [$category, $nextArticle]) }}" class="inline-flex items-center gap-1 text-sm font-medium text-[#1565C0] hover:underline">
+                                        <a href="{{ route('marketing-suite.help.article', [$category, $nextArticle]) }}" class="inline-flex items-center gap-1 text-sm font-medium text-[#1565C0] hover:underline">
                                             {{ __($nextArticle->title) }}
                                             <x-tabler-arrow-right class="h-4 w-4" />
                                         </a>

@@ -295,7 +295,7 @@ class LandingPageResource extends Resource
                     ->icon('heroicon-o-eye')
                     ->color('gray')
                     ->url(
-                        static fn (LandingPage $record): string => route('landing-page', $record->slug) . '?preview=true',
+                        static fn (LandingPage $record): string => route('marketing-suite.landing', $record->slug) . '?preview=true',
                     )
                     ->openUrlInNewTab(),
                 Action::make('duplicate')

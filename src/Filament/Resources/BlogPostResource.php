@@ -93,7 +93,7 @@ class BlogPostResource extends Resource
                 FileUpload::make('image')
                     ->nullable()
                     ->image()
-                    ->disk('public_assets')
+                    ->disk(config('marketing-suite.uploads.disk', 'public'))
                     ->directory('images')
                     ->visibility('public'),
                 Select::make('author_id')
@@ -139,7 +139,7 @@ class BlogPostResource extends Resource
                         : 'heroicon-o-eye')
                     ->action(static function (BlogPost $record): void {
                         $record->is_published = ! $record->is_published;
-                        $record->published_at = $record->is_published ? now() : null;
+                        $record->published_at = $record->is_published ? now()->toImmutable() : null;
                         $record->save();
                     }),
             ])

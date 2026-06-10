@@ -47,8 +47,9 @@ class ShortUrl extends BaseShortUrl
     public function getVisitsCountAttribute(): int
     {
         return (int) ($this->attributes['visits_count_cached'] ?? $this->visits()
-            ->whereNull('device_type')
-            ->orWhere('device_type', '!=', 'robot')
+            ->where(static function ($q): void {
+                $q->whereNull('device_type')->orWhere('device_type', '!=', 'robot');
+            })
             ->count());
     }
 

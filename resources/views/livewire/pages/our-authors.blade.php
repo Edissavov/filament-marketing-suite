@@ -5,7 +5,7 @@
         <div class="pointer-events-none absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-white/[0.02]"></div>
 
         <div class="relative mx-auto max-w-5xl" x-data="{ shown: false }" x-init="shown = false; $nextTick(() => setTimeout(() => shown = true, 80))">
-            <a href="{{ route('blog.index') }}" wire:navigate class="group inline-flex items-center gap-1.5 text-sm font-medium text-white/60 transition-colors duration-200 hover:text-white mb-10">
+            <a href="{{ route('marketing-suite.blog') }}" wire:navigate class="group inline-flex items-center gap-1.5 text-sm font-medium text-white/60 transition-colors duration-200 hover:text-white mb-10">
                 <svg class="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 {{ __('Blog') }}
             </a>
@@ -84,8 +84,8 @@
     </section>
 
     <x-slot:structuredData>
-        @include('partials.structured-data', [
-            'breadcrumbs' => [['name' => __('Our Authors'), 'url' => route('our-authors')]],
+        @include('marketing-suite::partials.structured-data', [
+            'breadcrumbs' => [['name' => __('Our Authors'), 'url' => route('marketing-suite.authors')]],
         ])
     </x-slot:structuredData>
 </div>
