@@ -2,6 +2,7 @@
 
 namespace VasilGerginski\MarketingSuite;
 
+use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
@@ -88,7 +89,7 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // Css::make('marketing-suite-styles', __DIR__ . '/../resources/dist/marketing-suite.css'),
+            Css::make('marketing-suite-styles', __DIR__ . '/../resources/dist/marketing-suite.css'),
         ];
     }
 
