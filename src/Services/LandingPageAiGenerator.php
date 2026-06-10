@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace VasilGerginski\MarketingSuite\Services;
 
 use Anthropic\Client;
+use Anthropic\Messages\RawContentBlockDeltaEvent;
+use Anthropic\Messages\RawMessageDeltaEvent;
+use Anthropic\Messages\TextDelta;
 
 class LandingPageAiGenerator
 {
@@ -13,6 +16,10 @@ class LandingPageAiGenerator
         if (! class_exists(Client::class)) {
             throw new \RuntimeException('The Anthropic SDK is not installed, run: composer require anthropic-ai/sdk');
         }
+
+        // Generating a full landing page can take a few minutes — don't let
+        // PHP's execution limit kill the request halfway through.
+        set_time_limit(600);
 
         $client = new Client(apiKey: config('services.anthropic.api_key'));
 
@@ -46,8 +53,11 @@ SYSTEM;
 
         $systemPrompt .= "\n- CRITICAL: Today is " . now()->format('Y-m-d (l)') . '. ALL dates in the output MUST be after today. Use YYYY-MM-DD format.';
 
-        $response = $client->messages->create(
-            maxTokens: 8000,
+        // Stream the response: a single blocking request of this size would
+        // sit on one long read and risk HTTP timeouts, and detailed briefs
+        // need far more output headroom than a non-streaming call allows.
+        $stream = $client->messages->createStream(
+            maxTokens: 64000,
             messages: [
                 ['role' => 'user', 'content' => $prompt],
             ],
@@ -57,10 +67,20 @@ SYSTEM;
         );
 
         $text = '';
-        foreach ($response->content as $block) {
-            if ($block->type === 'text') {
-                $text .= $block->text;
+        $stopReason = null;
+
+        foreach ($stream as $event) {
+            if ($event instanceof RawContentBlockDeltaEvent && $event->delta instanceof TextDelta) {
+                $text .= $event->delta->text;
             }
+
+            if ($event instanceof RawMessageDeltaEvent) {
+                $stopReason = $event->delta->stopReason;
+            }
+        }
+
+        if ($stopReason === 'max_tokens') {
+            throw new \RuntimeException('The AI response was cut off before completing — try a shorter brief.');
         }
 
         // Extract JSON from response (handle possible markdown wrapping)
@@ -71,6 +91,16 @@ SYSTEM;
         }
 
         $sections = json_decode($text, true);
+
+        if (! is_array($sections)) {
+            // The model occasionally wraps the JSON in prose — extract the array.
+            $start = strpos($text, '[');
+            $end = strrpos($text, ']');
+
+            if ($start !== false && $end !== false && $end > $start) {
+                $sections = json_decode(substr($text, $start, $end - $start + 1), true);
+            }
+        }
 
         if (! is_array($sections)) {
             throw new \RuntimeException('Failed to parse AI response as JSON');
