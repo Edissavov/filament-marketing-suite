@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
+use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;

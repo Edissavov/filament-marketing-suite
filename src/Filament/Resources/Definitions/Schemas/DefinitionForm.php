@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\Definitions\Schemas;
 
-use AbdulmajeedJamaan\FilamentTranslatableTabs\TranslatableTabs;
+use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
