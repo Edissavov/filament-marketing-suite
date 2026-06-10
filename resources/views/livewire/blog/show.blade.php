@@ -6,7 +6,7 @@
         <div class="pointer-events-none absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-white/2"></div>
 
         <div class="relative mx-auto max-w-3xl">
-            <a href="{{ route('blog.index') }}" wire:navigate class="group inline-flex items-center gap-1.5 text-sm font-medium text-white/60 transition-colors duration-200 hover:text-white mb-10">
+            <a href="{{ route('marketing-suite.blog') }}" wire:navigate class="group inline-flex items-center gap-1.5 text-sm font-medium text-white/60 transition-colors duration-200 hover:text-white mb-10">
                 <svg class="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 {{ __('All articles') }}
             </a>
@@ -52,7 +52,7 @@
         <div class="mx-auto max-w-3xl">
             @if($post->image)
                 <div class="mb-10 sm:mb-14">
-                    <img src="{{ asset($post->image) }}"
+                    <img src="{{ $post->image_url }}"
                          alt="{{ $post->title }}"
                          class="w-full rounded-2xl object-cover aspect-2/1 shadow-sm"
                          loading="lazy">
@@ -121,7 +121,7 @@
                     <h2 class="text-2xl font-bold tracking-tight text-[#1d1d1f]">
                         {{ __('Related articles') }}
                     </h2>
-                    <a href="{{ route('blog.index') }}" wire:navigate class="group hidden items-center gap-1.5 text-sm font-semibold text-[#1565C0] transition-colors hover:text-brand sm:flex">
+                    <a href="{{ route('marketing-suite.blog') }}" wire:navigate class="group hidden items-center gap-1.5 text-sm font-semibold text-[#1565C0] transition-colors hover:text-brand sm:flex">
                         {{ __('All articles') }}
                         <svg class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>

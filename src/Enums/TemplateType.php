@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace VasilGerginski\MarketingSuite\Enums;
 
 use Filament\Support\Contracts\HasLabel;
-use Illuminate\Contracts\Support\Htmlable;
 
 enum TemplateType: string implements HasLabel
 {
@@ -14,7 +13,7 @@ enum TemplateType: string implements HasLabel
     case Document = 'document';
     case Contract = 'contract';
 
-    public function getLabel(): string | Htmlable | null
+    public function getLabel(): string
     {
         return match ($this) {
             self::Email => __('Email'),

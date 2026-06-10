@@ -13,6 +13,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use VasilGerginski\FilamentShortUrl\Filament\Resources\ShortUrlResource as BaseShortUrlResource;
 use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Pages;
 use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\RelationManagers\ShortUrlSubmissionsRelationManager;
@@ -27,6 +28,17 @@ use VasilGerginski\MarketingSuite\Models\ShortUrl;
 class ShortUrlResource extends BaseShortUrlResource
 {
     protected static ?string $model = ShortUrl::class;
+
+    /**
+     * @return Builder<ShortUrl>
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        /** @var Builder<ShortUrl> $query */
+        $query = parent::getEloquentQuery();
+
+        return $query->withMetrics();
+    }
 
     public static function form(Schema $schema): Schema
     {

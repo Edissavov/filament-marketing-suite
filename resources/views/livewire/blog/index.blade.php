@@ -19,8 +19,8 @@
                     @foreach($posts as $post)
                         <article class="group flex flex-col overflow-hidden rounded-2xl border border-[#e0e0e0] bg-white transition-all duration-300 hover:border-[#c8c8c8] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
                             @if($post->image)
-                                <a href="{{ route('blog.show', $post) }}" wire:navigate class="block aspect-video overflow-hidden">
-                                    <img src="{{ asset($post->image) }}"
+                                <a href="{{ route('marketing-suite.blog.show', $post) }}" wire:navigate class="block aspect-video overflow-hidden">
+                                    <img src="{{ $post->image_url }}"
                                          alt="{{ $post->title }}"
                                          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                          loading="lazy">
@@ -31,7 +31,7 @@
                                     {{ $post->published_at?->format('d.m.Y') }}
                                 </time>
                                 <h2 class="mt-4 text-lg font-semibold leading-snug tracking-tight text-[#1d1d1f] line-clamp-2 transition-colors duration-200 group-hover:text-[#1565C0]">
-                                    <a href="{{ route('blog.show', $post) }}" wire:navigate>
+                                    <a href="{{ route('marketing-suite.blog.show', $post) }}" wire:navigate>
                                         {{ $post->title }}
                                         <span class="absolute inset-0"></span>
                                     </a>

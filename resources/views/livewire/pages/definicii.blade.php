@@ -19,31 +19,18 @@
     </section>
 
     {{-- DEFINITIONS GRID --}}
-    @php
-        $definitionList = [
-            ['term' => __('Annual Percentage Rate (APR)'), 'description' => __('The annual percentage rate includes all fees and costs associated with the loan. It is a key indicator for investors as it reflects the real cost of the loan for the borrower and accordingly — the potential return for the investor.')],
-            ['term' => __('Return on Investment (ROI)'), 'description' => __('The real profit after deducting fees and losses, measured on an annual basis. ROI shows what percentage of the invested funds has returned as profit for a given period.')],
-            ['term' => __('Principal'), 'description' => __('The initial amount of the investment, separate from the interest. The principal is the base upon which interest payments are calculated.')],
-            ['term' => __('Loan Originator'), 'description' => __('The company that issues the loan. The reliability of the originator is a key indicator of the investment risk. Find2Be works only with licensed financial institutions.')],
-            ['term' => __('Net Annual Return (NAR)'), 'description' => __('The return after all deductions, including defaults and buyback guarantees. NAR provides a more realistic picture of investment returns.')],
-            ['term' => __('Late Payment Rate / Delinquency Rate'), 'description' => __('The percentage of loans that are not repaid on time. A high delinquency rate may indicate increased risk for investors.')],
-            ['term' => __('Default Rate'), 'description' => __('The share of loans that are fully unpaid. This is a key risk indicator for investors. At Find2Be, risk is reduced through the buyback guarantee.')],
-            ['term' => __('Portfolio Diversification'), 'description' => __('Distributing investments across multiple loans and originators to reduce risk. It is recommended not to invest more than a small percentage of your portfolio in a single loan.')],
-            ['term' => __('Average Loan Term / Duration'), 'description' => __('The loan period — longer terms bring more uncertainty but also potentially higher returns. The average duration helps with liquidity planning.')],
-        ];
-    @endphp
     <section class="bg-apple-gray px-5 py-14 sm:px-8 sm:py-32 lg:px-10">
         <div class="mx-auto max-w-7xl" x-data="{ shown: false }" x-intersect.margin.-100px="shown = true">
             <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                @foreach($definitionList as $index => $definition)
+                @foreach($definitions as $definition)
                     <div :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
                          class="transition-all duration-700 ease-apple group rounded-2xl bg-white p-8 border border-[#e0e0e0] shadow-sm hover:border-[#c8c8c8] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
-                         style="transition-delay: {{ 80 * ($index % 6) }}ms">
+                         style="transition-delay: {{ 80 * ($loop->index % 6) }}ms">
                         <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-brand/8 text-brand">
                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
                         </div>
-                        <h3 class="text-base font-semibold tracking-tight text-[#1d1d1f]">{{ $definition['term'] }}</h3>
-                        <p class="mt-3 text-sm font-light leading-relaxed text-apple-secondary">{{ $definition['description'] }}</p>
+                        <h3 class="text-base font-semibold tracking-tight text-[#1d1d1f]">{{ $definition->term }}</h3>
+                        <p class="mt-3 text-sm font-light leading-relaxed text-apple-secondary">{{ $definition->description }}</p>
                     </div>
                 @endforeach
             </div>
@@ -55,7 +42,7 @@
                 <p class="mx-auto mt-3 max-w-lg text-sm font-light leading-relaxed text-apple-secondary">
                     {{ __('Visit our Help Center for detailed guides on registration, investing, deposits, withdrawals and more.') }}
                 </p>
-                <a href="{{ route('help-center') }}" wire:navigate
+                <a href="{{ route('marketing-suite.help') }}" wire:navigate
                    class="mt-6 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand/90">
                     {{ __('Help Center') }}
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
@@ -64,7 +51,8 @@
         </div>
     </section>
 
-    {{-- INVESTMENT CALCULATOR --}}
+    {{-- INVESTMENT CALCULATOR (rendered only when the host app provides the component) --}}
+    @if (\Livewire\Livewire::exists('investment-calculator'))
     <section class="bg-white px-5 py-14 sm:px-8 sm:py-32 lg:px-10">
         <div class="mx-auto max-w-5xl" x-data="{ shown: false }" x-intersect.margin.-100px="shown = true">
             <div :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
@@ -82,6 +70,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     {{-- RELATED BLOG POSTS --}}
     <section class="bg-apple-gray px-5 py-14 sm:px-8 sm:py-32 lg:px-10">
@@ -96,7 +85,7 @@
                         {{ __('Deepen your knowledge with our latest articles.') }}
                     </p>
                 </div>
-                <a href="{{ route('blog.index') }}" wire:navigate
+                <a href="{{ route('marketing-suite.blog') }}" wire:navigate
                    class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-all duration-200 hover:gap-3 sm:mt-0">
                     {{ __('All articles') }}
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
@@ -110,8 +99,8 @@
                                  class="transition-all duration-700 ease-apple group flex flex-col rounded-2xl bg-white border border-[#e0e0e0] shadow-sm hover:border-[#c8c8c8] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] relative overflow-hidden"
                                  style="transition-delay: {{ 100 + ($index * 80) }}ms">
                             @if($post->image)
-                                <a href="{{ route('blog.index') }}" wire:navigate class="block aspect-video overflow-hidden">
-                                    <img src="{{ asset($post->image) }}"
+                                <a href="{{ route('marketing-suite.blog') }}" wire:navigate class="block aspect-video overflow-hidden">
+                                    <img src="{{ $post->image_url }}"
                                          alt="{{ $post->title }}"
                                          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                          loading="lazy">
@@ -121,7 +110,7 @@
                                 <div class="flex-1">
                                     <time class="text-xs font-medium tracking-widest text-apple-secondary uppercase">{{ $post->published_at?->format('d.m.Y') }}</time>
                                     <h3 class="mt-4 text-lg font-semibold tracking-tight text-[#1d1d1f] line-clamp-2 leading-snug group-hover:text-brand transition-colors duration-200">
-                                        <a href="{{ route('blog.index') }}" wire:navigate>{{ $post->title }}<span class="absolute inset-0"></span></a>
+                                        <a href="{{ route('marketing-suite.blog') }}" wire:navigate>{{ $post->title }}<span class="absolute inset-0"></span></a>
                                     </h3>
                                     <p class="mt-3 text-sm font-light leading-relaxed text-apple-secondary line-clamp-3">
                                         {{ Str::limit(strip_tags($post->content), 120) }}
@@ -144,8 +133,8 @@
     </section>
 
     <x-slot:structuredData>
-        @include('partials.structured-data', [
-            'breadcrumbs' => [['name' => __('Definitions'), 'url' => route('definicii')]],
+        @include('marketing-suite::partials.structured-data', [
+            'breadcrumbs' => [['name' => __('Definitions'), 'url' => route('marketing-suite.definitions')]],
         ])
     </x-slot:structuredData>
 </div>

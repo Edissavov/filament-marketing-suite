@@ -41,7 +41,7 @@ trait HasSectionBlocks
     protected static function heroSectionBlock(): Block
     {
         return Block::make('hero_section')
-            ->preview('filament.content.block-previews.hero-section')
+            ->preview('marketing-suite::filament.block-previews.hero-section')
             ->label(__('Hero Section'))
             ->icon('heroicon-o-photo')
             ->schema([
@@ -80,7 +80,7 @@ trait HasSectionBlocks
     protected static function challengesSectionBlock(): Block
     {
         return Block::make('challenges_section')
-            ->preview('filament.content.block-previews.challenges-section')
+            ->preview('marketing-suite::filament.block-previews.challenges-section')
             ->label(__('Challenges Section'))
             ->icon('heroicon-o-exclamation-triangle')
             ->schema([
@@ -101,7 +101,7 @@ trait HasSectionBlocks
     protected static function solutionSectionBlock(): Block
     {
         return Block::make('solution_section')
-            ->preview('filament.content.block-previews.solution-section')
+            ->preview('marketing-suite::filament.block-previews.solution-section')
             ->label(__('Solution Section'))
             ->icon('heroicon-o-light-bulb')
             ->schema([
@@ -130,7 +130,7 @@ trait HasSectionBlocks
     protected static function productShowcaseBlock(): Block
     {
         return Block::make('product_showcase')
-            ->preview('filament.content.block-previews.product-showcase')
+            ->preview('marketing-suite::filament.block-previews.product-showcase')
             ->label(__('Product Showcase'))
             ->icon('heroicon-o-squares-2x2')
             ->schema([
@@ -158,7 +158,7 @@ trait HasSectionBlocks
     protected static function testimonialsSectionBlock(): Block
     {
         return Block::make('testimonials_section')
-            ->preview('filament.content.block-previews.testimonials-section')
+            ->preview('marketing-suite::filament.block-previews.testimonials-section')
             ->label(__('Testimonials'))
             ->icon('heroicon-o-chat-bubble-left-right')
             ->schema([
@@ -183,7 +183,7 @@ trait HasSectionBlocks
     protected static function faqSectionBlock(): Block
     {
         return Block::make('faq_section')
-            ->preview('filament.content.block-previews.faq-section')
+            ->preview('marketing-suite::filament.block-previews.faq-section')
             ->label(__('FAQ Section'))
             ->icon('heroicon-o-question-mark-circle')
             ->schema([
@@ -205,7 +205,7 @@ trait HasSectionBlocks
     protected static function ctaSectionBlock(): Block
     {
         return Block::make('cta_section')
-            ->preview('filament.content.block-previews.cta-section')
+            ->preview('marketing-suite::filament.block-previews.cta-section')
             ->label(__('CTA Section'))
             ->icon('heroicon-o-megaphone')
             ->schema([
@@ -234,7 +234,7 @@ trait HasSectionBlocks
     protected static function leadFormBlock(): Block
     {
         return Block::make('lead_form')
-            ->preview('filament.content.block-previews.lead-form')
+            ->preview('marketing-suite::filament.block-previews.lead-form')
             ->label(__('Lead Form'))
             ->icon('heroicon-o-envelope')
             ->schema([
@@ -265,7 +265,7 @@ trait HasSectionBlocks
     protected static function pricingTableBlock(): Block
     {
         return Block::make('pricing_table')
-            ->preview('filament.content.block-previews.pricing-table')
+            ->preview('marketing-suite::filament.block-previews.pricing-table')
             ->label(__('Pricing Table'))
             ->icon('heroicon-o-currency-euro')
             ->schema([
@@ -295,7 +295,7 @@ trait HasSectionBlocks
     protected static function iconListSectionBlock(): Block
     {
         return Block::make('icon_list_section')
-            ->preview('filament.content.block-previews.icon-list-section')
+            ->preview('marketing-suite::filament.block-previews.icon-list-section')
             ->label(__('Icon List'))
             ->icon('heroicon-o-list-bullet')
             ->schema([
@@ -316,7 +316,7 @@ trait HasSectionBlocks
     protected static function countdownTimerBlock(): Block
     {
         return Block::make('countdown_timer')
-            ->preview('filament.content.block-previews.countdown-timer')
+            ->preview('marketing-suite::filament.block-previews.countdown-timer')
             ->label(__('Countdown Timer'))
             ->icon('heroicon-o-clock')
             ->schema([
@@ -331,7 +331,7 @@ trait HasSectionBlocks
     protected static function eventRegistrationBlock(): Block
     {
         return Block::make('event_registration')
-            ->preview('filament.content.block-previews.event-registration')
+            ->preview('marketing-suite::filament.block-previews.event-registration')
             ->label(__('Event Registration'))
             ->icon('heroicon-o-calendar-days')
             ->schema([
@@ -365,7 +365,7 @@ trait HasSectionBlocks
     protected static function newsletterSignupBlock(): Block
     {
         return Block::make('newsletter_signup')
-            ->preview('filament.content.block-previews.newsletter-signup')
+            ->preview('marketing-suite::filament.block-previews.newsletter-signup')
             ->label(__('Newsletter Signup'))
             ->icon('heroicon-o-newspaper')
             ->schema([
@@ -380,7 +380,7 @@ trait HasSectionBlocks
     protected static function trustIndicatorsBlock(): Block
     {
         return Block::make('trust_indicators')
-            ->preview('filament.content.block-previews.trust-indicators')
+            ->preview('marketing-suite::filament.block-previews.trust-indicators')
             ->label(__('Trust Indicators'))
             ->icon('heroicon-o-shield-check')
             ->schema([

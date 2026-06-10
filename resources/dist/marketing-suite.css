@@ -1,0 +1,9 @@
+/* guava/calendar dark mode: the core event-calendar css defaults the grid
+   background to white and guava's theme only overrides borders/buttons/events,
+   leaving white-on-white grid lines and invisible day numbers. */
+.dark .ec {
+    color-scheme: dark;
+    --ec-bg-color: var(--gray-900);
+    --ec-day-bg-color: var(--gray-900);
+    --ec-text-color: var(--gray-200);
+}

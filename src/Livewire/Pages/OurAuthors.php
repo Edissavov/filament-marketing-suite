@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use VasilGerginski\MarketingSuite\Models\Author;
 
-#[Layout('components.layouts.public')]
+#[Layout('marketing-suite::components.layouts.public')]
 class OurAuthors extends Component
 {
     public function render(): View

@@ -2,6 +2,7 @@
 
 namespace VasilGerginski\MarketingSuite\Tests;
 
+use AshAllenDesign\ShortURL\Providers\ShortURLProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
@@ -19,6 +20,9 @@ use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
+use secondnetwork\TablerIcons\BladeTablerIconsServiceProvider;
+use Spatie\LaravelSettings\LaravelSettingsServiceProvider;
+use VasilGerginski\FilamentShortUrl\FilamentShortUrlServiceProvider;
 use VasilGerginski\MarketingSuite\MarketingSuiteServiceProvider;
 
 class TestCase extends Orchestra
@@ -42,6 +46,10 @@ class TestCase extends Orchestra
             BladeCaptureDirectiveServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             BladeIconsServiceProvider::class,
+            BladeTablerIconsServiceProvider::class,
+            LaravelSettingsServiceProvider::class,
+            ShortURLProvider::class,
+            FilamentShortUrlServiceProvider::class,
             FilamentServiceProvider::class,
             FormsServiceProvider::class,
             InfolistsServiceProvider::class,
@@ -61,6 +69,7 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app): void
     {
+        $app['config']->set('app.key', 'base64:' . base64_encode(random_bytes(32)));
         $app['config']->set('database.default', 'testing');
     }
 

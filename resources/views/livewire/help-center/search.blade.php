@@ -3,7 +3,7 @@
     <div class="bg-white border-b">
         <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
             <nav class="flex items-center gap-2 text-sm text-gray-500">
-                <a href="{{ route('help-center') }}" class="hover:text-[#1565C0]">{{ __('Help Center') }}</a>
+                <a href="{{ route('marketing-suite.help') }}" class="hover:text-[#1565C0]">{{ __('Help Center') }}</a>
                 <span>/</span>
                 <span class="font-medium text-[#1565C0]">{{ __('Search') }}</span>
             </nav>
@@ -36,7 +36,7 @@
             <aside class="hidden w-64 shrink-0 lg:block">
                 <nav class="sticky top-20 space-y-1">
                     @foreach($categories as $cat)
-                        <a href="{{ route('help-center.category', $cat) }}"
+                        <a href="{{ route('marketing-suite.help.category', $cat) }}"
                             class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-600 transition hover:bg-white hover:text-gray-900">
                             @if($cat->icon)
                                 <x-dynamic-component :component="$cat->icon" class="h-4 w-4 shrink-0" />
@@ -74,7 +74,7 @@
                     </div>
                     <div class="space-y-3">
                         @foreach($results as $result)
-                            <a href="{{ route('help-center.article', [$result->category, $result]) }}"
+                            <a href="{{ route('marketing-suite.help.article', [$result->category, $result]) }}"
                                 wire:key="search-{{ $result->id }}"
                                 wire:navigate
                                 class="block rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">

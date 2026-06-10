@@ -2,38 +2,17 @@
 
 namespace VasilGerginski\MarketingSuite;
 
+use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Blade;
 use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use VasilGerginski\MarketingSuite\Commands\MarketingSuiteCommand;
-use VasilGerginski\MarketingSuite\Livewire\Blog\Index;
-use VasilGerginski\MarketingSuite\Livewire\Blog\Show;
-use VasilGerginski\MarketingSuite\Livewire\ContactForm;
-use VasilGerginski\MarketingSuite\Livewire\HelpCenter;
-use VasilGerginski\MarketingSuite\Livewire\HelpCenter\Search;
-use VasilGerginski\MarketingSuite\Livewire\LandingPage;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\ChallengesSection;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\CountdownTimer;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\CtaSection;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\EventRegistration;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\FaqSection;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\HeroSection;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\IconListSection;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\LeadForm;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\NewsletterSignup;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\PricingTable;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\ProductShowcase;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\SolutionSection;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\TestimonialsSection;
-use VasilGerginski\MarketingSuite\Livewire\LandingPageComponents\TrustIndicatorsSection;
-use VasilGerginski\MarketingSuite\Livewire\NewsletterSubscribe;
-use VasilGerginski\MarketingSuite\Livewire\Pages\Blog;
-use VasilGerginski\MarketingSuite\Livewire\Pages\Definicii;
-use VasilGerginski\MarketingSuite\Livewire\Pages\OurAuthors;
+use VasilGerginski\MarketingSuite\Settings\SiteSettings;
 use VasilGerginski\MarketingSuite\Testing\TestsMarketingSuite;
 
 class MarketingSuiteServiceProvider extends PackageServiceProvider
@@ -53,7 +32,18 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
             ->hasMigrations($this->getMigrations());
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+        // Register the package settings class so it works without the host
+        // app having to add it to its own config/settings.php.
+        $this->app['config']->set(
+            'settings.settings',
+            array_unique(array_merge(
+                $this->app['config']->get('settings.settings', []),
+                [SiteSettings::class],
+            )),
+        );
+    }
 
     public function packageBooted(): void
     {
@@ -80,6 +70,10 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
             }
         }
 
+        // Blade components shipped with the package (<x-blog-card>, layouts).
+        // Host apps can override them by defining components with the same name.
+        Blade::anonymousComponentPath(__DIR__ . '/../resources/views/components');
+
         // Testing
         Testable::mixin(new TestsMarketingSuite);
 
@@ -95,7 +89,7 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // Css::make('marketing-suite-styles', __DIR__ . '/../resources/dist/marketing-suite.css'),
+            Css::make('marketing-suite-styles', __DIR__ . '/../resources/dist/marketing-suite.css'),
         ];
     }
 
@@ -142,31 +136,12 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
 
     protected function registerLivewireComponents(): void
     {
-        Livewire::component('marketing-suite::blog.index', Index::class);
-        Livewire::component('marketing-suite::blog.show', Show::class);
-        Livewire::component('marketing-suite::landing-page', LandingPage::class);
-        Livewire::component('marketing-suite::newsletter-subscribe', NewsletterSubscribe::class);
-        Livewire::component('marketing-suite::help-center', HelpCenter::class);
-        Livewire::component('marketing-suite::help-center.search', Search::class);
-        Livewire::component('marketing-suite::contact-form', ContactForm::class);
-        Livewire::component('marketing-suite::pages.blog', Blog::class);
-        Livewire::component('marketing-suite::pages.our-authors', OurAuthors::class);
-        Livewire::component('marketing-suite::pages.definicii', Definicii::class);
-
-        // Landing Page Section Components
-        Livewire::component('marketing-suite::landing-page-components.hero-section', HeroSection::class);
-        Livewire::component('marketing-suite::landing-page-components.challenges-section', ChallengesSection::class);
-        Livewire::component('marketing-suite::landing-page-components.solution-section', SolutionSection::class);
-        Livewire::component('marketing-suite::landing-page-components.product-showcase', ProductShowcase::class);
-        Livewire::component('marketing-suite::landing-page-components.testimonials-section', TestimonialsSection::class);
-        Livewire::component('marketing-suite::landing-page-components.faq-section', FaqSection::class);
-        Livewire::component('marketing-suite::landing-page-components.cta-section', CtaSection::class);
-        Livewire::component('marketing-suite::landing-page-components.lead-form', LeadForm::class);
-        Livewire::component('marketing-suite::landing-page-components.pricing-table', PricingTable::class);
-        Livewire::component('marketing-suite::landing-page-components.icon-list-section', IconListSection::class);
-        Livewire::component('marketing-suite::landing-page-components.countdown-timer', CountdownTimer::class);
-        Livewire::component('marketing-suite::landing-page-components.event-registration', EventRegistration::class);
-        Livewire::component('marketing-suite::landing-page-components.newsletter-signup', NewsletterSignup::class);
-        Livewire::component('marketing-suite::landing-page-components.trust-indicators-section', TrustIndicatorsSection::class);
+        // Livewire v4 resolves "namespace::name" components through registered
+        // namespaces (kebab-case dotted names map onto studly classes), so a
+        // single namespace registration covers every component in src/Livewire.
+        Livewire::addNamespace(
+            'marketing-suite',
+            classNamespace: 'VasilGerginski\\MarketingSuite\\Livewire',
+        );
     }
 }

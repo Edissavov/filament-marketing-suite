@@ -11,7 +11,7 @@ use VasilGerginski\MarketingSuite\Models\HelpArticle;
 use VasilGerginski\MarketingSuite\Models\HelpArticleFeedback;
 use VasilGerginski\MarketingSuite\Models\HelpCategory;
 
-#[Layout('components.layouts.guest')]
+#[Layout('marketing-suite::components.layouts.guest')]
 class HelpCenter extends Component
 {
     public ?HelpCategory $category = null;

@@ -8,6 +8,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -24,6 +25,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string|null $meta_description
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
+ * @property-read string|null $image_url
  *
  * @mixin \Eloquent
  */
@@ -58,9 +60,25 @@ class BlogPost extends Model
     protected function casts(): array
     {
         return [
-            'published_at' => 'datetime',
+            'published_at' => 'immutable_datetime',
             'is_published' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the public URL of the post image.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        if (! $this->image) {
+            return null;
+        }
+
+        if (str_starts_with($this->image, 'http')) {
+            return $this->image;
+        }
+
+        return Storage::disk(config('marketing-suite.uploads.disk', 'public'))->url($this->image);
     }
 
     /**

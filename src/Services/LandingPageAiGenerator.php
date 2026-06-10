@@ -10,6 +10,10 @@ class LandingPageAiGenerator
 {
     public function generate(string $prompt): array
     {
+        if (! class_exists(Client::class)) {
+            throw new \RuntimeException('The Anthropic SDK is not installed, run: composer require anthropic-ai/sdk');
+        }
+
         $client = new Client(apiKey: config('services.anthropic.api_key'));
 
         $systemPrompt = <<<'SYSTEM'
@@ -38,8 +42,9 @@ Rules:
 - Return ONLY a valid JSON array of sections, no markdown, no explanation
 - Choose appropriate section types based on the prompt
 - Generate realistic, professional content
-- CRITICAL: Today is ' . now()->format('Y-m-d (l)') . '. ALL dates in the output MUST be after today. Use YYYY-MM-DD format.
 SYSTEM;
+
+        $systemPrompt .= "\n- CRITICAL: Today is " . now()->format('Y-m-d (l)') . '. ALL dates in the output MUST be after today. Use YYYY-MM-DD format.';
 
         $response = $client->messages->create(
             maxTokens: 8000,

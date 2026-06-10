@@ -10,6 +10,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource;
+use VasilGerginski\MarketingSuite\Models\LandingPage;
 use VasilGerginski\MarketingSuite\Models\ShortUrl;
 use VasilGerginski\MarketingSuite\Services\LandingPageAiGenerator;
 
@@ -19,8 +20,11 @@ class EditLandingPage extends EditRecord
 
     protected function getHeaderActions(): array
     {
+        /** @var LandingPage $record */
+        $record = $this->getRecord();
+
         $shortUrl = ShortUrl::query()
-            ->where('destination_url', $this->record->url)
+            ->where('destination_url', $record->url)
             ->first();
 
         return [
@@ -37,11 +41,11 @@ class EditLandingPage extends EditRecord
                 ])
                 ->requiresConfirmation()
                 ->modalDescription(__('This will replace all existing sections with AI-generated content.'))
-                ->action(function (array $data): void {
+                ->action(function (array $data) use ($record): void {
                     try {
                         $sections = app(LandingPageAiGenerator::class)->generate($data['prompt']);
 
-                        $this->record->update(['sections' => $sections]);
+                        $record->update(['sections' => $sections]);
 
                         Notification::make()
                             ->title(__('Sections regenerated'))
@@ -65,13 +69,13 @@ class EditLandingPage extends EditRecord
                 ->label($shortUrl ? __('Copy Short URL') : __('Create Short URL'))
                 ->icon('heroicon-o-link')
                 ->color('primary')
-                ->action(function () use (&$shortUrl): void {
+                ->action(function () use (&$shortUrl, $record): void {
                     if (! $shortUrl) {
                         $shortUrl = ShortUrl::query()->create([
-                            'destination_url' => $this->record->url,
-                            'url_key' => 'lp-' . $this->record->slug,
-                            'default_short_url' => url('/short/lp-' . $this->record->slug),
-                            'description' => $this->record->title,
+                            'destination_url' => $record->url,
+                            'url_key' => 'lp-' . $record->slug,
+                            'default_short_url' => url('/short/lp-' . $record->slug),
+                            'description' => $record->title,
                             'track_visits' => true,
                             'track_ip_address' => true,
                             'track_operating_system' => true,
@@ -95,7 +99,7 @@ class EditLandingPage extends EditRecord
                 ->label(__('Preview'))
                 ->icon('heroicon-o-eye')
                 ->color('gray')
-                ->url(fn (): string => route('landing-page', $this->record->slug) . '?preview=true')
+                ->url(fn (): string => route('marketing-suite.landing', $record->slug) . '?preview=true')
                 ->openUrlInNewTab(),
             DeleteAction::make(),
         ];

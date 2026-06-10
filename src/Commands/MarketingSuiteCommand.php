@@ -25,6 +25,15 @@ class MarketingSuiteCommand extends Command
         ]);
 
         $this->call('vendor:publish', [
+            '--provider' => 'AshAllenDesign\ShortURL\Providers\ShortURLProvider',
+            '--tag' => 'short-url-config',
+        ]);
+
+        $this->call('vendor:publish', [
+            '--tag' => 'filament-short-url-migrations',
+        ]);
+
+        $this->call('vendor:publish', [
             '--tag' => 'marketing-suite-migrations',
         ]);
 

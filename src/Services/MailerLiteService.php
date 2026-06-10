@@ -23,6 +23,12 @@ class MailerLiteService
             return $this->client;
         }
 
+        if (! class_exists(MailerLite::class)) {
+            Log::warning('MailerLite SDK is not installed, run: composer require mailerlite/mailerlite-php');
+
+            return null;
+        }
+
         $key = $this->apiKey
             ?? config('services.mailerlite.api_key')
             ?: app(SiteSettings::class)->mailerlite_api_key;

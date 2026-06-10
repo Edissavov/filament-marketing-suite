@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use VasilGerginski\MarketingSuite\Models\LandingPage as LandingPageModel;
 
-#[Layout('components.layouts.landing')]
+#[Layout('marketing-suite::components.layouts.landing')]
 class LandingPage extends Component
 {
     public LandingPageModel $landingPage;
@@ -33,11 +33,13 @@ class LandingPage extends Component
     public function render(): View
     {
         return view('marketing-suite::livewire.landing-page', [
-            'pageTitle' => $this->landingPage->title,
-            'metaDescription' => $this->landingPage->meta_description,
-            'ogImage' => $this->landingPage->og_image,
             'trackingCode' => $this->landingPage->enable_analytics ? $this->landingPage->tracking_code : null,
-        ]);
+        ])
+            ->layoutData([
+                'title' => $this->landingPage->title,
+                'seoDescription' => $this->landingPage->meta_description,
+                'seoImage' => $this->landingPage->og_image,
+            ]);
     }
 
     private function loadSections(): void
@@ -48,20 +50,20 @@ class LandingPage extends Component
 
         /** @var array<string, string> $sectionTypeMap */
         $sectionTypeMap = [
-            'hero_section' => 'landing-page-components.hero-section',
-            'challenges_section' => 'landing-page-components.challenges-section',
-            'solution_section' => 'landing-page-components.solution-section',
-            'product_showcase' => 'landing-page-components.product-showcase',
-            'testimonials_section' => 'landing-page-components.testimonials-section',
-            'faq_section' => 'landing-page-components.faq-section',
-            'cta_section' => 'landing-page-components.cta-section',
-            'lead_form' => 'landing-page-components.lead-form',
-            'pricing_table' => 'landing-page-components.pricing-table',
-            'icon_list_section' => 'landing-page-components.icon-list-section',
-            'countdown_timer' => 'landing-page-components.countdown-timer',
-            'event_registration' => 'landing-page-components.event-registration',
-            'newsletter_signup' => 'landing-page-components.newsletter-signup',
-            'trust_indicators' => 'landing-page-components.trust-indicators-section',
+            'hero_section' => 'marketing-suite::landing-page-components.hero-section',
+            'challenges_section' => 'marketing-suite::landing-page-components.challenges-section',
+            'solution_section' => 'marketing-suite::landing-page-components.solution-section',
+            'product_showcase' => 'marketing-suite::landing-page-components.product-showcase',
+            'testimonials_section' => 'marketing-suite::landing-page-components.testimonials-section',
+            'faq_section' => 'marketing-suite::landing-page-components.faq-section',
+            'cta_section' => 'marketing-suite::landing-page-components.cta-section',
+            'lead_form' => 'marketing-suite::landing-page-components.lead-form',
+            'pricing_table' => 'marketing-suite::landing-page-components.pricing-table',
+            'icon_list_section' => 'marketing-suite::landing-page-components.icon-list-section',
+            'countdown_timer' => 'marketing-suite::landing-page-components.countdown-timer',
+            'event_registration' => 'marketing-suite::landing-page-components.event-registration',
+            'newsletter_signup' => 'marketing-suite::landing-page-components.newsletter-signup',
+            'trust_indicators' => 'marketing-suite::landing-page-components.trust-indicators-section',
         ];
 
         foreach ($rawSections as $section) {

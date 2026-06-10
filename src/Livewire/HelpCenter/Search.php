@@ -11,7 +11,7 @@ use Livewire\Component;
 use VasilGerginski\MarketingSuite\Models\HelpArticle;
 use VasilGerginski\MarketingSuite\Models\HelpCategory;
 
-#[Layout('components.layouts.guest')]
+#[Layout('marketing-suite::components.layouts.guest')]
 class Search extends Component
 {
     #[Url(as: 'q')]
