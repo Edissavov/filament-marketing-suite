@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use BackedEnum;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -18,6 +17,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use VasilGerginski\MarketingSuite\Filament\Resources\HelpArticleResource\Pages;
 use VasilGerginski\MarketingSuite\Models\HelpArticle;
 use VasilGerginski\MarketingSuite\Models\HelpCategory;

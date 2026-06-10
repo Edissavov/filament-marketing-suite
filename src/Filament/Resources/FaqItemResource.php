@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use BackedEnum;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -15,6 +14,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use VasilGerginski\MarketingSuite\Filament\Resources\FaqItemResource\Pages;
 use VasilGerginski\MarketingSuite\Models\FaqItem;
 

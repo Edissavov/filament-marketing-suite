@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\Definitions\Schemas;
 
-use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 
 class DefinitionForm
 {

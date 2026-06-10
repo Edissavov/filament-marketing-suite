@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources;
 
-use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
@@ -27,6 +26,7 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
+use VasilGerginski\MarketingSuite\Filament\Components\TranslatableTabs;
 use VasilGerginski\MarketingSuite\Filament\Resources\Concerns\HasSectionBlocks;
 use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource\Pages;
 use VasilGerginski\MarketingSuite\Models\Event;
