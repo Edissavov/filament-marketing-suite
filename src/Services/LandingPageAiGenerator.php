@@ -6,9 +6,9 @@ namespace VasilGerginski\MarketingSuite\Services;
 
 use Anthropic\Client;
 use Anthropic\Core\Exceptions\APIConnectionException;
+use Anthropic\Messages\InputJSONDelta;
 use Anthropic\Messages\RawContentBlockDeltaEvent;
 use Anthropic\Messages\RawMessageDeltaEvent;
-use Anthropic\Messages\TextDelta;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Support\Facades\Log;
 
@@ -49,7 +49,7 @@ Available section types and their data fields:
 Rules:
 - For in-page anchor links use: #lead-form, #register, #newsletter, #cta
 - CRITICAL: Every section MUST have a "type" and "data" object. The "data" object MUST include ALL fields listed above for that type — do not skip any, and do not include fields that belong to other section types.
-- Return the sections in the required JSON structure, nothing else
+- Submit the sections by calling the submit_landing_page_sections tool, nothing else
 - Choose appropriate section types based on the prompt
 - Generate realistic, professional content
 SYSTEM;
@@ -59,9 +59,15 @@ SYSTEM;
         // Stream the response: a single blocking request of this size would
         // sit on one long read and risk HTTP timeouts, and detailed briefs
         // need far more output headroom than a non-streaming call allows.
-        // The JSON schema output format makes the API guarantee parseable
-        // JSON — long responses in non-Latin scripts were prone to invalid
-        // JSON when only prompted for it.
+        //
+        // The sections are produced through a forced (non-strict) tool call:
+        // tool arguments are emitted as JSON the API parses itself, which is
+        // far more reliable than prompting for JSON in the text response —
+        // long responses in non-Latin scripts were prone to invalid JSON.
+        // Structured outputs can't be used here: every schema shape able to
+        // describe the sections exceeds the API's compiled-grammar limit.
+        $schema = $this->sectionsSchema();
+
         try {
             $stream = $client->messages->createStream(
                 maxTokens: 64000,
@@ -69,22 +75,28 @@ SYSTEM;
                     ['role' => 'user', 'content' => $prompt],
                 ],
                 model: 'claude-sonnet-4-6',
-                outputConfig: [
-                    'format' => [
-                        'type' => 'json_schema',
-                        'schema' => $this->sectionsSchema(),
-                    ],
-                ],
                 system: $systemPrompt,
                 temperature: 0.7,
+                toolChoice: ['type' => 'tool', 'name' => 'submit_landing_page_sections'],
+                tools: [
+                    [
+                        'name' => 'submit_landing_page_sections',
+                        'description' => 'Submit the generated landing page sections.',
+                        'inputSchema' => [
+                            'type' => 'object',
+                            'properties' => $schema['properties'],
+                            'required' => $schema['required'],
+                        ],
+                    ],
+                ],
             );
 
             $text = '';
             $stopReason = null;
 
             foreach ($stream as $event) {
-                if ($event instanceof RawContentBlockDeltaEvent && $event->delta instanceof TextDelta) {
-                    $text .= $event->delta->text;
+                if ($event instanceof RawContentBlockDeltaEvent && $event->delta instanceof InputJSONDelta) {
+                    $text .= $event->delta->partialJSON;
                 }
 
                 if ($event instanceof RawMessageDeltaEvent) {
@@ -174,13 +186,15 @@ SYSTEM;
     }
 
     /**
-     * JSON schema enforced on the model output.
-     *
-     * A single flattened section shape is used: a type enum plus one merged
+     * Input schema for the sections tool call: a type enum plus one merged
      * data object holding the union of all per-type fields, each defined
-     * once. Fully typed per-section anyOf variants compile to a constrained
-     * decoding grammar that exceeds the API's size limit ("The compiled
-     * grammar is too large").
+     * once.
+     *
+     * Used as a regular (non-strict) tool schema on purpose — both this
+     * shape and fully typed per-section anyOf variants exceed the API's
+     * compiled-grammar size limit when enforced strictly ("The compiled
+     * grammar is too large"), which rules out structured outputs and strict
+     * tools alike.
      *
      * @return array<string, mixed>
      */
