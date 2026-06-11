@@ -40,7 +40,11 @@ class LandingPage extends Model
     use HasFactory;
     use HasTranslations;
 
-    public array $translatable = ['title', 'meta_description', 'sections'];
+    // Note: sections is intentionally NOT translatable. The form edits it
+    // with a single (non-localized) Builder, and Filament fills edit forms
+    // from attributesToArray(), where translatable attributes return the
+    // full locale map — which the Builder cannot render.
+    public array $translatable = ['title', 'meta_description'];
 
     protected $fillable = [
         'title',
