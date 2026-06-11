@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
- * @property int $event_id
+ * @property int|null $event_id
  * @property int|null $landing_page_id
  * @property int|null $short_url_visit_id
  * @property int|null $event_slot_id
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property array<string, mixed>|null $data
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
- * @property-read Event $event
+ * @property-read Event|null $event
  * @property-read LandingPage|null $landingPage
  * @property-read ShortURLVisit|null $shortUrlVisit
  * @property-read EventSlot|null $eventSlot

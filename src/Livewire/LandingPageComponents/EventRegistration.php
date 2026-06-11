@@ -91,7 +91,7 @@ class EventRegistration extends Component
             $this->validate($rules);
         }
 
-        if ($this->eventId) {
+        if ($this->eventId || $this->landingPageId) {
             EventSubmission::create([
                 'event_id' => $this->eventId,
                 'landing_page_id' => $this->landingPageId,

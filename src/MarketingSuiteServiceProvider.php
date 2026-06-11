@@ -131,6 +131,7 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
             'create_landing_pages_table',
             'create_event_submissions_table',
             'create_marketing_suite_settings',
+            'make_event_submissions_event_id_nullable',
         ];
     }
 

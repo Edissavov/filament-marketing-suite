@@ -77,6 +77,29 @@ class LandingPage extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        // Every landing page gets its own tracking event so form submissions
+        // are always captured as leads, regardless of how the page was created.
+        static::created(static function (self $page): void {
+            if ($page->event_id) {
+                return;
+            }
+
+            $event = Event::create([
+                'name' => $page->title,
+                'event_type' => match ($page->goal_type) {
+                    'event' => 'event_registration',
+                    'newsletter' => 'newsletter',
+                    default => 'lead_generation',
+                },
+                'is_active' => true,
+            ]);
+
+            $page->updateQuietly(['event_id' => $event->id]);
+        });
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';
