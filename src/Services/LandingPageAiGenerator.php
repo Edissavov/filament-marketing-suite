@@ -106,11 +106,25 @@ SYSTEM;
             throw new \RuntimeException('Failed to parse AI response as JSON');
         }
 
-        // Format sections with IDs and ensure required fields have defaults
+        return $this->formatSections($sections);
+    }
+
+    /**
+     * Normalize decoded sections and apply defaults.
+     *
+     * Returns a list — never an associative array — matching the shape the
+     * form Builder stores, so generated pages stay editable in the panel.
+     *
+     * @param  array<int, mixed>  $sections
+     * @return list<array{type: string, data: array<string, mixed>}>
+     */
+    public function formatSections(array $sections): array
+    {
         $formatted = [];
+
         foreach ($sections as $section) {
-            $type = $section['type'] ?? null;
-            $data = $section['data'] ?? [];
+            $type = is_array($section) ? ($section['type'] ?? null) : null;
+            $data = is_array($section) ? ($section['data'] ?? []) : [];
 
             if (! $type) {
                 continue;
@@ -131,9 +145,7 @@ SYSTEM;
                 $data['buttonLink'] = $data['buttonLink'] ?? '#register';
             }
 
-            $id = bin2hex(random_bytes(16));
-            $formatted[$id] = [
-                'id' => $id,
+            $formatted[] = [
                 'type' => $type,
                 'data' => $data,
             ];
