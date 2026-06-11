@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource\Pages;
 
+use AshAllenDesign\ShortURL\Classes\KeyGenerator;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Textarea;
@@ -71,10 +72,12 @@ class EditLandingPage extends EditRecord
                 ->color('primary')
                 ->action(function () use (&$shortUrl, $record): void {
                     if (! $shortUrl) {
+                        $key = app(KeyGenerator::class)->generateRandom();
+
                         $shortUrl = ShortUrl::query()->create([
                             'destination_url' => $record->url,
-                            'url_key' => 'lp-' . $record->slug,
-                            'default_short_url' => url('/short/lp-' . $record->slug),
+                            'url_key' => $key,
+                            'default_short_url' => ShortUrl::defaultShortUrlFor($key),
                             'description' => $record->title,
                             'track_visits' => true,
                             'track_ip_address' => true,
@@ -91,7 +94,7 @@ class EditLandingPage extends EditRecord
 
                     Notification::make()
                         ->title(__('Short URL'))
-                        ->body(url('/short/' . $shortUrl->url_key))
+                        ->body($shortUrl->default_short_url)
                         ->success()
                         ->send();
                 }),

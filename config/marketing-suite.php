@@ -99,6 +99,10 @@ return [
     */
     'short_urls' => [
         'enabled' => true,
+
+        // Route prefix for short link redirects, e.g. https://yoursite.com/s/Xk3aP.
+        // Set to null to keep the prefix configured in the short-url package.
+        'prefix' => '/s',
     ],
 
     /*

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource\Pages;
 
+use AshAllenDesign\ShortURL\Classes\KeyGenerator;
 use Filament\Resources\Pages\CreateRecord;
 use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource;
 use VasilGerginski\MarketingSuite\Models\LandingPage;
@@ -20,11 +21,13 @@ class CreateLandingPage extends CreateRecord
         $record = $this->record;
 
         // Auto-create ShortURL for tracking
+        $key = app(KeyGenerator::class)->generateRandom();
+
         ShortUrl::query()->firstOrCreate(
             ['destination_url' => $record->url],
             [
-                'url_key' => 'lp-' . $record->slug,
-                'default_short_url' => url('/short/lp-' . $record->slug),
+                'url_key' => $key,
+                'default_short_url' => ShortUrl::defaultShortUrlFor($key),
                 'description' => $record->title,
                 'track_visits' => true,
                 'track_ip_address' => true,
