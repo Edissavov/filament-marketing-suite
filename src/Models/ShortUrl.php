@@ -28,6 +28,17 @@ class ShortUrl extends BaseShortUrl
     ];
 
     /**
+     * Build the public short URL for a key, honoring the configured prefix.
+     */
+    public static function defaultShortUrlFor(string $key): string
+    {
+        $base = rtrim(config('short-url.default_url') ?? config('app.url'), '/');
+        $prefix = trim((string) config('short-url.prefix'), '/');
+
+        return $base . ($prefix !== '' ? "/{$prefix}" : '') . "/{$key}";
+    }
+
+    /**
      * Get all submissions through visits.
      *
      * @return HasManyThrough<EventSubmission, ShortURLVisit, $this>

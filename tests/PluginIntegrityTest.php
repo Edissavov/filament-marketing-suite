@@ -8,6 +8,7 @@ use VasilGerginski\MarketingSuite\Filament\Exports\EventSubmissionExporter;
 use VasilGerginski\MarketingSuite\Filament\Resources\ShortUrlResource\Widgets\VisitTrendsWidget;
 use VasilGerginski\MarketingSuite\MarketingSuitePlugin;
 use VasilGerginski\MarketingSuite\MarketingSuiteTheme;
+use VasilGerginski\MarketingSuite\Models\ShortUrl;
 
 it('exposes every publish tag used by the install command', function () {
     $tags = [
@@ -46,4 +47,10 @@ it('registers all panel resources, pages and widgets, and their classes load', f
         // which surfaces fatal signature mismatches against Filament parents.
         expect(class_exists($class))->toBeTrue("Class [{$class}] failed to load.");
     }
+});
+
+it('keeps generated short links short', function () {
+    expect(config('short-url.prefix'))->toBe('/s')
+        ->and(ShortUrl::defaultShortUrlFor('Xk3aP'))
+        ->toEndWith('/s/Xk3aP');
 });

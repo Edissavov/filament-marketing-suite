@@ -43,6 +43,13 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
                 [SiteSettings::class],
             )),
         );
+
+        // Keep generated short links actually short (e.g. yoursite.com/s/Xk3aP).
+        // Set marketing-suite.short_urls.prefix to null to keep the prefix
+        // configured in the short-url package instead.
+        if ($prefix = $this->app['config']->get('marketing-suite.short_urls.prefix')) {
+            $this->app['config']->set('short-url.prefix', $prefix);
+        }
     }
 
     public function packageBooted(): void
