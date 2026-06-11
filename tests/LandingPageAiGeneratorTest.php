@@ -45,3 +45,14 @@ it('stores AI-generated sections readable by the edit form and the public page',
 
     $this->get('/landing/ai-page')->assertOk()->assertSee('Big Launch');
 });
+
+it('constrains AI output with a schema covering every section type', function () {
+    $schema = (new LandingPageAiGenerator)->sectionsSchema();
+
+    $variants = collect($schema['properties']['sections']['items']['anyOf']);
+
+    expect($variants)->toHaveCount(14)
+        ->and($variants->map(fn ($variant) => $variant['properties']['type']['const'])->all())
+        ->toContain('hero_section', 'lead_form', 'event_registration', 'pricing_table')
+        ->and(json_encode($schema))->toBeString();
+});
