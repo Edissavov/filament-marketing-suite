@@ -49,10 +49,11 @@ it('stores AI-generated sections readable by the edit form and the public page',
 it('constrains AI output with a schema covering every section type', function () {
     $schema = (new LandingPageAiGenerator)->sectionsSchema();
 
-    $variants = collect($schema['properties']['sections']['items']['anyOf']);
+    $items = $schema['properties']['sections']['items'];
 
-    expect($variants)->toHaveCount(14)
-        ->and($variants->map(fn ($variant) => $variant['properties']['type']['const'])->all())
+    expect($items['properties']['type']['enum'])->toHaveCount(14)
         ->toContain('hero_section', 'lead_form', 'event_registration', 'pricing_table')
+        ->and(array_keys($items['properties']['data']['properties']))
+        ->toContain('buttons', 'fields', 'plans', 'questions', 'targetDate')
         ->and(json_encode($schema))->toBeString();
 });
