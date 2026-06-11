@@ -24,6 +24,7 @@ use secondnetwork\TablerIcons\BladeTablerIconsServiceProvider;
 use Spatie\LaravelSettings\LaravelSettingsServiceProvider;
 use VasilGerginski\FilamentShortUrl\FilamentShortUrlServiceProvider;
 use VasilGerginski\MarketingSuite\MarketingSuiteServiceProvider;
+use VasilGerginski\MarketingSuite\Tests\Fixtures\AdminPanelProvider;
 
 class TestCase extends Orchestra
 {
@@ -60,6 +61,7 @@ class TestCase extends Orchestra
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
             MarketingSuiteServiceProvider::class,
+            AdminPanelProvider::class,
         ];
 
         sort($providers);

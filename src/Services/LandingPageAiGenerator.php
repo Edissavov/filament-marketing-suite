@@ -161,8 +161,14 @@ SYSTEM;
                 continue;
             }
 
-            // Ensure required fields have defaults
-            $data['title'] = $data['title'] ?? '';
+            // Ensure fields the form marks as required have usable defaults —
+            // a single missing one silently blocks saving the whole page.
+            if (($data['title'] ?? '') === '') {
+                $data['title'] = __('Untitled section');
+            }
+            if ($type === 'countdown_timer') {
+                $data['targetDate'] = $data['targetDate'] ?? now()->addDays(7)->format('Y-m-d H:i:s');
+            }
             if (in_array($type, ['lead_form', 'event_registration', 'newsletter_signup'])) {
                 $data['buttonText'] = $data['buttonText'] ?? __('Submit');
                 $data['successMessage'] = $data['successMessage'] ?? __('Thank you!');

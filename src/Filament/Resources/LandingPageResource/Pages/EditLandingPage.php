@@ -10,6 +10,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Validation\ValidationException;
 use VasilGerginski\MarketingSuite\Filament\Resources\LandingPageResource;
 use VasilGerginski\MarketingSuite\Models\LandingPage;
 use VasilGerginski\MarketingSuite\Models\ShortUrl;
@@ -18,6 +19,19 @@ use VasilGerginski\MarketingSuite\Services\LandingPageAiGenerator;
 class EditLandingPage extends EditRecord
 {
     protected static string $resource = LandingPageResource::class;
+
+    /**
+     * Filament swallows validation errors by default; on a page full of
+     * collapsed builder blocks that looks like the save button doing nothing.
+     */
+    protected function onValidationError(ValidationException $exception): void
+    {
+        Notification::make()
+            ->title(__('The page could not be saved'))
+            ->body($exception->validator->errors()->first())
+            ->danger()
+            ->send();
+    }
 
     protected function getHeaderActions(): array
     {
