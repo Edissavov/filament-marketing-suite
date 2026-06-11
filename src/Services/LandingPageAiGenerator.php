@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace VasilGerginski\MarketingSuite\Services;
 
 use Anthropic\Client;
+use Anthropic\Core\Exceptions\APIConnectionException;
 use Anthropic\Messages\RawContentBlockDeltaEvent;
 use Anthropic\Messages\RawMessageDeltaEvent;
 use Anthropic\Messages\TextDelta;
+use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Support\Facades\Log;
 
 class LandingPageAiGenerator
@@ -46,7 +48,7 @@ Available section types and their data fields:
 
 Rules:
 - For in-page anchor links use: #lead-form, #register, #newsletter, #cta
-- CRITICAL: Every section MUST have a "type" and "data" object. The "data" object MUST include ALL fields listed above for that type — do not skip any.
+- CRITICAL: Every section MUST have a "type" and "data" object. The "data" object MUST include ALL fields listed above for that type — do not skip any, and do not include fields that belong to other section types.
 - Return the sections in the required JSON structure, nothing else
 - Choose appropriate section types based on the prompt
 - Generate realistic, professional content
@@ -57,36 +59,52 @@ SYSTEM;
         // Stream the response: a single blocking request of this size would
         // sit on one long read and risk HTTP timeouts, and detailed briefs
         // need far more output headroom than a non-streaming call allows.
-        // The JSON schema output format makes the API guarantee parseable,
-        // correctly shaped JSON — long responses in non-Latin scripts were
-        // prone to invalid JSON when only prompted for it.
-        $stream = $client->messages->createStream(
-            maxTokens: 64000,
-            messages: [
-                ['role' => 'user', 'content' => $prompt],
-            ],
-            model: 'claude-sonnet-4-6',
-            outputConfig: [
-                'format' => [
-                    'type' => 'json_schema',
-                    'schema' => $this->sectionsSchema(),
+        // The JSON schema output format makes the API guarantee parseable
+        // JSON — long responses in non-Latin scripts were prone to invalid
+        // JSON when only prompted for it.
+        try {
+            $stream = $client->messages->createStream(
+                maxTokens: 64000,
+                messages: [
+                    ['role' => 'user', 'content' => $prompt],
                 ],
-            ],
-            system: $systemPrompt,
-            temperature: 0.7,
-        );
+                model: 'claude-sonnet-4-6',
+                outputConfig: [
+                    'format' => [
+                        'type' => 'json_schema',
+                        'schema' => $this->sectionsSchema(),
+                    ],
+                ],
+                system: $systemPrompt,
+                temperature: 0.7,
+            );
 
-        $text = '';
-        $stopReason = null;
+            $text = '';
+            $stopReason = null;
 
-        foreach ($stream as $event) {
-            if ($event instanceof RawContentBlockDeltaEvent && $event->delta instanceof TextDelta) {
-                $text .= $event->delta->text;
+            foreach ($stream as $event) {
+                if ($event instanceof RawContentBlockDeltaEvent && $event->delta instanceof TextDelta) {
+                    $text .= $event->delta->text;
+                }
+
+                if ($event instanceof RawMessageDeltaEvent) {
+                    $stopReason = $event->delta->stopReason;
+                }
+            }
+        } catch (APIConnectionException $e) {
+            // Some HTTP clients report API rejections as transport failures,
+            // burying the API's error message — surface it for diagnosis.
+            $previous = $e->getPrevious();
+            $detail = $previous?->getMessage() ?? $e->getMessage();
+
+            if (class_exists(BadResponseException::class)
+                && $previous instanceof BadResponseException) {
+                $detail = (string) $previous->getResponse()->getBody();
             }
 
-            if ($event instanceof RawMessageDeltaEvent) {
-                $stopReason = $event->delta->stopReason;
-            }
+            Log::error('AI landing page generation request failed', ['detail' => $detail]);
+
+            throw new \RuntimeException('The AI request failed: ' . mb_substr($detail, 0, 300), previous: $e);
         }
 
         if ($stopReason === 'max_tokens') {
@@ -156,8 +174,13 @@ SYSTEM;
     }
 
     /**
-     * JSON schema enforced on the model output — every section variant the
-     * page builder understands, with all of its data fields.
+     * JSON schema enforced on the model output.
+     *
+     * A single flattened section shape is used: a type enum plus one merged
+     * data object holding the union of all per-type fields, each defined
+     * once. Fully typed per-section anyOf variants compile to a constrained
+     * decoding grammar that exceeds the API's size limit ("The compiled
+     * grammar is too large").
      *
      * @return array<string, mixed>
      */
@@ -175,21 +198,6 @@ SYSTEM;
             ],
         ];
 
-        $section = static fn (string $type, array $properties): array => [
-            'type' => 'object',
-            'properties' => [
-                'type' => ['type' => 'string', 'const' => $type],
-                'data' => [
-                    'type' => 'object',
-                    'properties' => $properties,
-                    'required' => array_keys($properties),
-                    'additionalProperties' => false,
-                ],
-            ],
-            'required' => ['type', 'data'],
-            'additionalProperties' => false,
-        ];
-
         $features = $objectList(['text' => $text]);
 
         $iconItems = $objectList([
@@ -198,126 +206,91 @@ SYSTEM;
             'description' => $text,
         ]);
 
-        $formFields = $objectList([
-            'name' => $text,
-            'label' => $text,
-            'type' => ['type' => 'string', 'enum' => ['text', 'email', 'phone', 'textarea']],
-            'required' => ['type' => 'boolean'],
-        ]);
-
         return [
             'type' => 'object',
             'properties' => [
                 'sections' => [
                     'type' => 'array',
                     'items' => [
-                        'anyOf' => [
-                            $section('hero_section', [
-                                'badge' => $text,
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'buttons' => $objectList([
-                                    'text' => $text,
-                                    'link' => $text,
-                                    'style' => ['type' => 'string', 'enum' => ['primary', 'outline']],
-                                ]),
-                                'statistics' => $objectList(['value' => $text, 'description' => $text]),
-                            ]),
-                            $section('challenges_section', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'challenges' => $iconItems,
-                            ]),
-                            $section('solution_section', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'steps' => $objectList(['number' => $text, 'title' => $text, 'description' => $text]),
-                                'benefits' => $features,
-                            ]),
-                            $section('product_showcase', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'products' => $objectList([
-                                    'name' => $text,
-                                    'description' => $text,
-                                    'features' => $features,
-                                ]),
-                            ]),
-                            $section('testimonials_section', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'testimonials' => $objectList([
-                                    'name' => $text,
-                                    'role' => $text,
-                                    'content' => $text,
-                                    'rating' => ['type' => 'integer'],
-                                ]),
-                            ]),
-                            $section('faq_section', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'ctaText' => $text,
-                                'ctaLink' => $text,
-                                'questions' => $objectList(['question' => $text, 'answer' => $text]),
-                            ]),
-                            $section('cta_section', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'buttonText' => $text,
-                                'buttonLink' => $text,
-                                'features' => $features,
-                            ]),
-                            $section('lead_form', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'buttonText' => $text,
-                                'successMessage' => $text,
-                                'fields' => $formFields,
-                            ]),
-                            $section('icon_list_section', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'items' => $iconItems,
-                            ]),
-                            $section('countdown_timer', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'targetDate' => $text,
-                                'buttonText' => $text,
-                                'buttonLink' => $text,
-                            ]),
-                            $section('newsletter_signup', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'buttonText' => $text,
-                                'successMessage' => $text,
-                                'privacyText' => $text,
-                            ]),
-                            $section('trust_indicators', [
-                                'title' => $text,
-                                'indicators' => $iconItems,
-                            ]),
-                            $section('event_registration', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'buttonText' => $text,
-                                'successMessage' => $text,
-                                'fields' => $formFields,
-                            ]),
-                            $section('pricing_table', [
-                                'title' => $text,
-                                'subtitle' => $text,
-                                'plans' => $objectList([
-                                    'name' => $text,
-                                    'price' => $text,
-                                    'period' => $text,
-                                    'isPopular' => ['type' => 'boolean'],
+                        'type' => 'object',
+                        'properties' => [
+                            'type' => [
+                                'type' => 'string',
+                                'enum' => [
+                                    'hero_section',
+                                    'challenges_section',
+                                    'solution_section',
+                                    'product_showcase',
+                                    'testimonials_section',
+                                    'faq_section',
+                                    'cta_section',
+                                    'lead_form',
+                                    'icon_list_section',
+                                    'countdown_timer',
+                                    'newsletter_signup',
+                                    'trust_indicators',
+                                    'event_registration',
+                                    'pricing_table',
+                                ],
+                            ],
+                            'data' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'badge' => $text,
+                                    'title' => $text,
+                                    'subtitle' => $text,
+                                    'buttons' => $objectList([
+                                        'text' => $text,
+                                        'link' => $text,
+                                        'style' => ['type' => 'string', 'enum' => ['primary', 'outline']],
+                                    ]),
+                                    'statistics' => $objectList(['value' => $text, 'description' => $text]),
+                                    'challenges' => $iconItems,
+                                    'steps' => $objectList(['number' => $text, 'title' => $text, 'description' => $text]),
+                                    'benefits' => $features,
+                                    'products' => $objectList([
+                                        'name' => $text,
+                                        'description' => $text,
+                                        'features' => $features,
+                                    ]),
+                                    'testimonials' => $objectList([
+                                        'name' => $text,
+                                        'role' => $text,
+                                        'content' => $text,
+                                        'rating' => ['type' => 'integer'],
+                                    ]),
+                                    'ctaText' => $text,
+                                    'ctaLink' => $text,
+                                    'questions' => $objectList(['question' => $text, 'answer' => $text]),
                                     'buttonText' => $text,
                                     'buttonLink' => $text,
-                                    'features' => $features,
-                                ]),
-                            ]),
+                                    'successMessage' => $text,
+                                    'privacyText' => $text,
+                                    'targetDate' => $text,
+                                    'fields' => $objectList([
+                                        'name' => $text,
+                                        'label' => $text,
+                                        'type' => ['type' => 'string', 'enum' => ['text', 'email', 'phone', 'textarea']],
+                                        'required' => ['type' => 'boolean'],
+                                    ]),
+                                    'items' => $iconItems,
+                                    'indicators' => $iconItems,
+                                    'plans' => $objectList([
+                                        'name' => $text,
+                                        'price' => $text,
+                                        'period' => $text,
+                                        'isPopular' => ['type' => 'boolean'],
+                                        'buttonText' => $text,
+                                        'buttonLink' => $text,
+                                        'features' => $features,
+                                    ]),
+                                ],
+                                'required' => ['title'],
+                                'additionalProperties' => false,
+                            ],
                         ],
+                        'required' => ['type', 'data'],
+                        'additionalProperties' => false,
                     ],
                 ],
             ],
