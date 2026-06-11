@@ -2,11 +2,13 @@
 
 namespace VasilGerginski\MarketingSuite;
 
+use AshAllenDesign\ShortURL\Events\ShortURLVisited;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
@@ -50,6 +52,13 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
         if ($prefix = $this->app['config']->get('marketing-suite.short_urls.prefix')) {
             $this->app['config']->set('short-url.prefix', $prefix);
         }
+
+        // The redirect route needs the web middleware group for a session —
+        // conversion tracking stores the visit id in the session so landing
+        // page forms can attach it to the lead.
+        if (empty($this->app['config']->get('short-url.middleware'))) {
+            $this->app['config']->set('short-url.middleware', ['web']);
+        }
     }
 
     public function packageBooted(): void
@@ -80,6 +89,13 @@ class MarketingSuiteServiceProvider extends PackageServiceProvider
         // Blade components shipped with the package (<x-blog-card>, layouts).
         // Host apps can override them by defining components with the same name.
         Blade::anonymousComponentPath(__DIR__ . '/../resources/views/components');
+
+        // Remember which short URL visit brought the visitor here — the
+        // landing page forms attach it to the lead, which is what the
+        // conversion metrics count.
+        Event::listen(ShortURLVisited::class, static function (ShortURLVisited $event): void {
+            session(['short_url_visit_id' => $event->shortURLVisit->id]);
+        });
 
         // Testing
         Testable::mixin(new TestsMarketingSuite);
