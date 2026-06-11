@@ -118,10 +118,13 @@ class LandingPage extends Component
                 unset($data['slots']);
             }
 
-            // Pass event and landing page IDs for conversion tracking
+            // Pass IDs for lead capture and conversion tracking. The landing
+            // page id must always be present — leads are captured even when
+            // no event is linked to the page.
+            $data['landingPageId'] = $this->landingPage->id;
+
             if ($this->landingPage->event_id) {
                 $data['eventId'] = $this->landingPage->event_id;
-                $data['landingPageId'] = $this->landingPage->id;
             }
 
             // Map 'slots' to 'availableSlots' for the EventRegistration component

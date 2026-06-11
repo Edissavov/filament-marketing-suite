@@ -24,6 +24,7 @@ function runPackageMigrations(): void
         __DIR__ . '/../database/migrations/create_landing_pages_table.php.stub',
         __DIR__ . '/../database/migrations/create_event_submissions_table.php.stub',
         __DIR__ . '/../database/migrations/create_marketing_suite_settings.php.stub',
+        __DIR__ . '/../database/migrations/make_event_submissions_event_id_nullable.php.stub',
     ];
 
     foreach ($migrations as $migration) {

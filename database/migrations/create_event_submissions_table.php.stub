@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('event_submissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('event_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('landing_page_id')->nullable()->constrained('landing_pages')->nullOnDelete();
             $table->unsignedBigInteger('short_url_visit_id')->nullable();
             $table->foreignId('event_slot_id')->nullable()->constrained('event_slots')->nullOnDelete();

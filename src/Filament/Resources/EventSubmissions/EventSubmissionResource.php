@@ -57,7 +57,8 @@ class EventSubmissionResource extends Resource
                 Section::make(__('Submission Context'))
                     ->schema([
                         TextEntry::make('event.name')
-                            ->label(__('Event')),
+                            ->label(__('Event'))
+                            ->placeholder('-'),
                         TextEntry::make('landingPage.title')
                             ->label(__('Landing Page'))
                             ->placeholder('-'),
@@ -166,7 +167,8 @@ class EventSubmissionResource extends Resource
                 TextColumn::make('event.name')
                     ->label(__('Event'))
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->placeholder('-'),
                 TextColumn::make('section_type')
                     ->label(__('Type'))
                     ->badge()
