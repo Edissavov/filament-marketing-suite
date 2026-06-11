@@ -14,6 +14,7 @@ use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
@@ -83,6 +84,13 @@ class LandingPageResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
+                TextEntry::make('url')
+                    ->label(__('Public URL'))
+                    ->icon('heroicon-o-link')
+                    ->copyable()
+                    ->copyMessage(__('Copied!'))
+                    ->helperText(__('Click to copy. Use this as the Short URL destination.'))
+                    ->hiddenOn('create'),
                 Select::make('theme')
                     ->label(__('Color Theme'))
                     ->options([
